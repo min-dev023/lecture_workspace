@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    #wrapper {
+        width: 900px;
+        height: 800px;
+    }
+    #aside {
+        width: 200px;
+        height: 800px;
+        float: left;
+        background-color: skyblue;
+        text-align: center;
+    }
+    #session {
+        width: 700px;
+        height: 800px;
+        float: left;
+        background-color: gainsboro;
+        text-align: center;
+    }
+    div > img {
+        width: 60px;
+    }
+    #imgWar {
+        width: 300px;
+        height: 350px;
+        /* 투명도 조절 */
+        /* opacity: 50%; */
+        /* 각도 조절 */
+        /* transform: rotate(25deg); */
+    }
+
+</style>
+<script>
+
+    let width = 300;
+    let height = 350;
+    let opacity = 1;
+    let rotate = 0;
+    let n = 10;
+    // let op = 0.1;
+    let ro = 10;
+
+    function setWidth(a) {
+        
+        // 문서 내의 imgWar 라고 불리는 요소의 스타일 중에서 width를 증가
+
+        if (a == 1) {
+            console.log("너비 감소");
+            
+            width = width - n;
+            console.log(width);
+            document.querySelector("#imgWar").style.width = width + "px";
+        }
+        else {
+            console.log("너비 증가");
+            
+            width = width + n;
+            console.log(width);
+            document.querySelector("#imgWar").style.width = width + "px";
+        }
+    }
+    
+    function setHeight(a) {
+
+        if (a == 1) {
+            console.log("높이 감소");
+            
+            height = height - n;
+            console.log(height);
+            document.querySelector("#imgWar").style.height = height + "px";
+        }
+        else {
+            console.log("높이 증가");
+            
+            height = height + n;
+            console.log(height);
+            document.querySelector("#imgWar").style.height = height + "px";
+        }
+    }
+
+    function setOpacity(a) {
+        // 문서 내의 imgWar 요소의 스타일 중 투명도 값을 증가시킴 (증가할수록 불투명)
+        if (a == 1) {
+            console.log("투명도 감소");
+            
+            // console.log(op);
+            opacity = opacity - 0.1;
+            console.log(opacity);
+            document.querySelector("#imgWar").style.opacity = opacity;
+
+            if (opacity <= 0) {
+                opacity = 0;
+                console.log(opacity);
+            }
+        }
+        else {
+            console.log("투명도 증가");
+            
+            opacity = opacity + 0.1;
+            console.log(opacity);
+            document.querySelector("#imgWar").style.opacity = opacity;
+
+            if (opacity >= 1) {
+                opacity = 1;
+                console.log(opacity);
+            }
+        }
+    }
+    
+    function setRotate(a) {
+        // 문서 내의 imgWar 요소에 적용된 스타일 중 rotate값을 증가(시계방향으로 회전)
+
+        if (a == 1) {
+            console.log("각도 감소");
+            
+            rotate = rotate - ro;
+            console.log(rotate);
+            document.querySelector('#imgWar').style.transform="rotate(" + rotate + "deg)";
+        }
+        else {
+            console.log("각도 증가");
+            
+            rotate = rotate + ro;
+            console.log(rotate);
+            document.querySelector('#imgWar').style.transform="rotate(" + rotate + "deg)";
+        }
+    }
+</script>
+<body>
+    <div id="wrapper">
+        <div id="aside">
+            <!-- 너비, 높이, 투명도, 각도 조절 -->
+            <div> 
+                <img id="minBtn" src="../../images/minus_btn.png" onclick="setWidth(1)">
+                <img id="addBtn" src="../../images/plus_btn.png" onclick="setWidth(2)">
+                <br> <p>너비조절</p>
+            </div>
+            <div>
+                <img id="minBtn" src="../../images/minus_btn.png" onclick="setHeight(1)">
+                <img id="addBtn" src="../../images/plus_btn.png" onclick="setHeight(2)">
+                <br> <p>높이조절</p>
+            </div>
+            <div>
+                <img id="minBtn" src="../../images/minus_btn.png" onclick="setOpacity(1)">
+                <img id="addBtn" src="../../images/plus_btn.png" onclick="setOpacity(2)">
+                <br> <p>투명도 조절</p>
+            </div>
+            <div>
+                <img id="minBtn" src="../../images/minus_btn.png" onclick="setRotate(1)">
+                <img id="addBtn" src="../../images/plus_btn.png" onclick="setRotate(2)">
+                <br> <p>각도 조절</p>
+            </div>
+        </div>
+
+        <div id="session">
+            <img id="imgWar" src="../../images/warior.png">
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    #wrapper {
+        width: 850px;
+        height: 550px;
+        text-align: center;
+        border: 1px solid black;
+    }
+    #content {
+        width: 700px;
+        height: 100%;
+        float: left;
+        background-color: lightcyan;
+        position: relative;
+    }
+    #aside {
+        width: 150px;
+        height: 100%;
+        float: left;
+        background-color: lightslategrey;
+        overflow-y: auto;
+    }
+    #content img {
+        width: 200px;
+        height: 200px; 
+    }
+</style>
+<script>
+    // 프로그램에서 자주 사용될 가능성이 있는 요소들을 초기화 작업시, 전역변수화 시켜놓자
+    // 프로그래밍 가동되면, 초기화할 작업이 있을 경우 초기화 함수를 정의하는게 좋은 방법임
+
+    let content;
+    let aside;
+    let img; // 다른 함수 영역(scope)에서도 접근할 수 있도록 전역으로 빼놓자
+    let flag = false;
+
+    
+    function createFood(){
+        img = document.createElement("img");
+        img.src = "../images/ham.png";
+        img.style.width = 70 + "px";
+        img.style.height = 70 + "px";
+        img.style.position = "absolute";
+        img.style.left = 100 + "px";
+        img.style.top = 200 + "px";
+
+        // 음식이 따라다니는 기준은 flag 변수 이므로 유저를 배려하여 클릭시마다 논리값을 뒤집자.
+        // document.body.addEventListener("mousedown", function(){
+        //     flag = true;
+        //     img.style.border = 10 + "px solid red";
+        //     img.style.borderRadius =  50 + "%";
+        // });
+        // document.body.addEventListener("mouseup", function(){
+        //     flag = false;
+        //     img.style.border = "none";
+        // });
+
+        img.addEventListener("click", function(){
+            flag = !flag;
+            if(flag) {
+                this.style.border = "3px solid red";
+                this.style.borderRadius =  50 + "%";
+            } else {
+                this.style.border = "none";
+            }
+        });
+
+        content.appendChild(img);
+    }
+
+    // 접시 만들기
+    function createDish() {
+        dish = document.createElement("div");
+        content.appendChild(dish);
+        dish.style.backgroundColor = "white";
+        dish.style.width = 200 + "px";
+        dish.style.height = 200 + "px";
+        dish.style.position = "absolute";
+        dish.style.left = 300 + "px";
+        dish.style.top = 150 + "px";
+        dish.style.border =  2 + "px solid black";
+        dish.style.borderRadius =  50 + "%";
+
+        upDish = document.createElement("div");
+        content.appendChild(upDish);
+        upDish.style.backgroundColor = "white";
+        upDish.style.width = 100 + "px";
+        upDish.style.height = 100 + "px";
+        upDish.style.position = "absolute";
+        upDish.style.left = 350 + "px";
+        upDish.style.top = 200 + "px";
+        upDish.style.border =  2 + "px solid black";
+        upDish.style.borderRadius =  50 + "%";
+
+    }
+
+    function init(){
+        content = document.getElementById("content");
+        aside = document.getElementById("aside");
+
+        createDish();
+
+        createFood(); // 음식 등장 시키기.
+
+        // 문서 전체를 대상으로 마우스 이벤트를 연결하자
+        document.body.addEventListener("mousemove", function(){
+            console.log("움직임");
+
+            let x = event.clientX; // 마우스의 x좌표
+            let y = event.clientY; // 마우스의 y좌표
+
+            // 아래의 조건식은 flag에 따라 수행할지 말지 결정됨.
+            if(flag) {
+                // 유효한 범위라면
+                if (x <= (750-70) && y <= (550-70)) {
+                    //마우스에 의한 x,y좌표를 음식의 좌표와 일치시키면 따라다니는 효과 가능
+                    img.style.left = (x - 35) +"px";
+                    img.style.top = (y - 35) +"px";
+                } 
+            }
+
+            // aside 영역에 좌표를 출력하자
+            // aside.innerHTML = aside.innerHTML + `x=${x}, y=${y} <br>`;
+        });
+    }
+
+    // 문서가 로드된 이후에 작업을 진행
+    addEventListener("load", function(){
+        init();
+    });
+    
+    /* content 요소에 대해 마우스 움직임 이벤트 연결하기
+    */
+
+
+</script>
+<body> 
+    <div id="wrapper">
+        <div id="content">
+        </div>
+        <div id="aside">
+        
+        </div>
+    </div>
+</body>
+</html>

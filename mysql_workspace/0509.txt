@@ -1,0 +1,363 @@
+SQL> SELECT USERNAME FROM DBA_USERS;
+
+USERNAME                                                                        
+------------------------------------------------------------                    
+SYS                                                                             
+SYSTEM                                                                          
+ANONYMOUS                                                                       
+JAVA                                                                            
+JS                                                                              
+APEX_PUBLIC_USER                                                                
+FLOWS_FILES                                                                     
+APEX_040000                                                                     
+OUTLN                                                                           
+DIP                                                                             
+ORACLE_OCM                                                                      
+
+USERNAME                                                                        
+------------------------------------------------------------                    
+XS$NULL                                                                         
+MDSYS                                                                           
+CTXSYS                                                                          
+DBSNMP                                                                          
+XDB                                                                             
+APPQOSSYS                                                                       
+HR                                                                              
+
+18 rows selected.
+
+SQL> -- JS로 접속을 전환
+SQL> CONNECT JS
+Connected.
+SQL> SHOW USER;
+USER is "JS"
+SQL> -- 딕셔너리로 현재 계정이 보유한 테이블 조회
+SQL> SELECT TABLE_NAME FROM USER_TABLES;
+
+TABLE_NAME                                                                      
+------------------------------------------------------------                    
+MEMBER                                                                          
+MEMBER2                                                                         
+MEMBER3                                                                         
+
+SQL> -- EMP 공부를 위해 접속을 바꾼다.
+SQL> CONN JAVA/1234
+Connected.
+SQL> SELECT TABLE_NAME FROM USER_TABLES;
+
+TABLE_NAME                                                                      
+------------------------------------------------------------                    
+DEPT                                                                            
+EMP                                                                             
+
+SQL> SELECT E.EMPNO, E.ENAME, D.DEPTNO, D.DNAME
+  2  FROM EMP E, DEPT D
+  3  WHERE D.DEPTNO = E.DEPTNO
+  4  ;
+
+     EMPNO ENAME                    DEPTNO DNAME                                
+---------- -------------------- ---------- ----------------------------         
+      7369 SMITH                        20 RESEARCH                             
+      7499 ALLEN                        30 SALES                                
+      7521 WARD                         30 SALES                                
+      7566 JONES                        20 RESEARCH                             
+      7654 MARTIN                       30 SALES                                
+      7698 BLAKE                        30 SALES                                
+
+6 rows selected.
+
+SQL> -- 테이블에서 중복된 데이터는 결점이 상당함.
+SQL> SELECT * FROM DEPT;
+
+    DEPTNO DNAME                        LOC                                     
+---------- ---------------------------- --------------------------              
+        10 ACCOUNTING                   NEW YORK                                
+        20 RESEARCH                     DALLAS                                  
+        30 SALES                        CHICAGO                                 
+        40 OPERATIONS                   BOSTON                                  
+
+SQL> SELECT * FROM EMP;
+
+     EMPNO ENAME                JOB                       MGR HIREDATE          
+---------- -------------------- ------------------ ---------- --------          
+       SAL       COMM     DEPTNO                                                
+---------- ---------- ----------                                                
+      7369 SMITH                CLERK                    7902 80/12/17          
+       800                    20                                                
+                                                                                
+      7499 ALLEN                SALESMAN                 7698 81/02/20          
+      1600        300         30                                                
+                                                                                
+      7521 WARD                 SALESMAN                 7698 81/02/22          
+      1250        500         30                                                
+                                                                                
+
+     EMPNO ENAME                JOB                       MGR HIREDATE          
+---------- -------------------- ------------------ ---------- --------          
+       SAL       COMM     DEPTNO                                                
+---------- ---------- ----------                                                
+      7566 JONES                MANAGER                  7839 81/04/02          
+      2975                    20                                                
+                                                                                
+      7654 MARTIN               SALESMAN                 7698 81/09/28          
+      1250       1400         30                                                
+                                                                                
+      7698 BLAKE                MANAGER                  7839 81/05/01          
+      2850                    30                                                
+                                                                                
+
+6 rows selected.
+
+SQL> SELECT * FROM EMP;
+
+     EMPNO ENAME                JOB                       MGR HIREDATE          
+---------- -------------------- ------------------ ---------- --------          
+       SAL       COMM     DEPTNO                                                
+---------- ---------- ----------                                                
+      7369 SMITH                CLERK                    7902 80/12/17          
+       800                    20                                                
+                                                                                
+      7499 ALLEN                SALESMAN                 7698 81/02/20          
+      1600        300         30                                                
+                                                                                
+      7521 WARD                 SALESMAN                 7698 81/02/22          
+      1250        500         30                                                
+                                                                                
+
+     EMPNO ENAME                JOB                       MGR HIREDATE          
+---------- -------------------- ------------------ ---------- --------          
+       SAL       COMM     DEPTNO                                                
+---------- ---------- ----------                                                
+      7566 JONES                MANAGER                  7839 81/04/02          
+      2975                    20                                                
+                                                                                
+      7654 MARTIN               SALESMAN                 7698 81/09/28          
+      1250       1400         30                                                
+                                                                                
+      7698 BLAKE                MANAGER                  7839 81/05/01          
+      2850                    30                                                
+                                                                                
+
+6 rows selected.
+
+SQL> -- SQLPLUS 자체 명령 중 한 라인에 들어갈 글자수 늘리기
+SQL> SET LINE 400
+SQL> SELECT * FROM EMP;
+
+     EMPNO ENAME                JOB                       MGR HIREDATE        SAL       COMM     DEPTNO                                                                                                                                                                                                                                                                                                         
+---------- -------------------- ------------------ ---------- -------- ---------- ---------- ----------                                                                                                                                                                                                                                                                                                         
+      7369 SMITH                CLERK                    7902 80/12/17        800                    20                                                                                                                                                                                                                                                                                                         
+      7499 ALLEN                SALESMAN                 7698 81/02/20       1600        300         30                                                                                                                                                                                                                                                                                                         
+      7521 WARD                 SALESMAN                 7698 81/02/22       1250        500         30                                                                                                                                                                                                                                                                                                         
+      7566 JONES                MANAGER                  7839 81/04/02       2975                    20                                                                                                                                                                                                                                                                                                         
+      7654 MARTIN               SALESMAN                 7698 81/09/28       1250       1400         30                                                                                                                                                                                                                                                                                                         
+      7698 BLAKE                MANAGER                  7839 81/05/01       2850                    30                                                                                                                                                                                                                                                                                                         
+
+6 rows selected.
+
+SQL> -- 원래 하나였던 EMP와 DEPT를 다시 합쳐서 보여주기
+SQL> SELECT E.*, D.*
+  2  FROM EMP E, DEPT D
+  3  WHERE E.DEPTNO = D.DEPTNO;
+
+     EMPNO ENAME                JOB                       MGR HIREDATE        SAL       COMM     DEPTNO     DEPTNO DNAME                        LOC                                                                                                                                                                                                                                                             
+---------- -------------------- ------------------ ---------- -------- ---------- ---------- ---------- ---------- ---------------------------- --------------------------                                                                                                                                                                                                                                      
+      7369 SMITH                CLERK                    7902 80/12/17        800                    20         20 RESEARCH                     DALLAS                                                                                                                                                                                                                                                          
+      7499 ALLEN                SALESMAN                 7698 81/02/20       1600        300         30         30 SALES                        CHICAGO                                                                                                                                                                                                                                                         
+      7521 WARD                 SALESMAN                 7698 81/02/22       1250        500         30         30 SALES                        CHICAGO                                                                                                                                                                                                                                                         
+      7566 JONES                MANAGER                  7839 81/04/02       2975                    20         20 RESEARCH                     DALLAS                                                                                                                                                                                                                                                          
+      7654 MARTIN               SALESMAN                 7698 81/09/28       1250       1400         30         30 SALES                        CHICAGO                                                                                                                                                                                                                                                         
+      7698 BLAKE                MANAGER                  7839 81/05/01       2850                    30         30 SALES                        CHICAGO                                                                                                                                                                                                                                                         
+
+6 rows selected.
+
+SQL> SELECT E.ENAME, E.SAL, D.DNAME, D.LOC
+  2  FROM EMP E, DEPT D
+  3  WHERE E.DEPTNO = D.DEPTNO;
+
+ENAME                       SAL DNAME                        LOC                                                                                                                                                                                                                                                                                                                                                
+-------------------- ---------- ---------------------------- --------------------------                                                                                                                                                                                                                                                                                                                         
+SMITH                       800 RESEARCH                     DALLAS                                                                                                                                                                                                                                                                                                                                             
+ALLEN                      1600 SALES                        CHICAGO                                                                                                                                                                                                                                                                                                                                            
+WARD                       1250 SALES                        CHICAGO                                                                                                                                                                                                                                                                                                                                            
+JONES                      2975 RESEARCH                     DALLAS                                                                                                                                                                                                                                                                                                                                             
+MARTIN                     1250 SALES                        CHICAGO                                                                                                                                                                                                                                                                                                                                            
+BLAKE                      2850 SALES                        CHICAGO                                                                                                                                                                                                                                                                                                                                            
+
+6 rows selected.
+
+SQL> SELECT E.ENAME, E.SAL, D.DNAME, D.LOC
+  2  FROM EMP E LEFT JOIN DEPT
+  3  WHERE E.DEPTNO = D.DEPTNO;
+WHERE E.DEPTNO = D.DEPTNO
+*
+ERROR at line 3:
+ORA-00905: missing keyword 
+
+
+SQL> SELECT E.ENAME, E.SAL, D.DNAME, D.LOC
+  2  FROM EMP E LEFT JOIN DEPT D
+  3  WHERE E.DEPTNO = D.DEPTNO;
+WHERE E.DEPTNO = D.DEPTNO
+*
+ERROR at line 3:
+ORA-00905: missing keyword 
+
+
+SQL> SELECT *
+  2  FROM EMP, DEPT
+  3  WHERE EMP.DEPTNO = DEPT.DEPTNO;
+
+     EMPNO ENAME                JOB                       MGR HIREDATE        SAL       COMM     DEPTNO     DEPTNO DNAME                        LOC                                                                                                                                                                                                                                                             
+---------- -------------------- ------------------ ---------- -------- ---------- ---------- ---------- ---------- ---------------------------- --------------------------                                                                                                                                                                                                                                      
+      7369 SMITH                CLERK                    7902 80/12/17        800                    20         20 RESEARCH                     DALLAS                                                                                                                                                                                                                                                          
+      7499 ALLEN                SALESMAN                 7698 81/02/20       1600        300         30         30 SALES                        CHICAGO                                                                                                                                                                                                                                                         
+      7521 WARD                 SALESMAN                 7698 81/02/22       1250        500         30         30 SALES                        CHICAGO                                                                                                                                                                                                                                                         
+      7566 JONES                MANAGER                  7839 81/04/02       2975                    20         20 RESEARCH                     DALLAS                                                                                                                                                                                                                                                          
+      7654 MARTIN               SALESMAN                 7698 81/09/28       1250       1400         30         30 SALES                        CHICAGO                                                                                                                                                                                                                                                         
+      7698 BLAKE                MANAGER                  7839 81/05/01       2850                    30         30 SALES                        CHICAGO                                                                                                                                                                                                                                                         
+
+6 rows selected.
+
+SQL> SELECT *
+  2  FROM EMP E LEFT JOIN DEPT D
+  3  WHERE E.DEPTNO = D.DEPTNO
+  4  ORDER BY MGR, EMPNO;
+WHERE E.DEPTNO = D.DEPTNO
+*
+ERROR at line 3:
+ORA-00905: missing keyword 
+
+
+SQL> SELECT *
+  2  FROM EMP, DEPT
+  3  WHERE E.DEPTNO = D.DEPTNO
+  4  ORDER BY EMP.MGR, EMP.EMPNO;
+WHERE E.DEPTNO = D.DEPTNO
+                 *
+ERROR at line 3:
+ORA-00904: "D"."DEPTNO": invalid identifier 
+
+
+SQL> SELECT E.ENAME, E.SAL, E.HIREDATE, D.DNAME, D.LOC
+  2  FROM EMP E, DEPT D
+  3  WHERE E.DEPTNO = D.DEPTNO;
+
+ENAME                       SAL HIREDATE DNAME                        LOC                                                                                                                                                                                                                                                                                                                                       
+-------------------- ---------- -------- ---------------------------- --------------------------                                                                                                                                                                                                                                                                                                                
+SMITH                       800 80/12/17 RESEARCH                     DALLAS                                                                                                                                                                                                                                                                                                                                    
+ALLEN                      1600 81/02/20 SALES                        CHICAGO                                                                                                                                                                                                                                                                                                                                   
+WARD                       1250 81/02/22 SALES                        CHICAGO                                                                                                                                                                                                                                                                                                                                   
+JONES                      2975 81/04/02 RESEARCH                     DALLAS                                                                                                                                                                                                                                                                                                                                    
+MARTIN                     1250 81/09/28 SALES                        CHICAGO                                                                                                                                                                                                                                                                                                                                   
+BLAKE                      2850 81/05/01 SALES                        CHICAGO                                                                                                                                                                                                                                                                                                                                   
+
+6 rows selected.
+
+SQL> SELECT E.ENAME, E.SAL, E.HIREDATE, D.DNAME, D.LOC
+  2  FROM EMP E, DEPT D
+  3  WHERE E.DEPTNO = D.DEPTNO
+  4  AND E.SAL > 2500;
+
+ENAME                       SAL HIREDATE DNAME                        LOC                                                                                                                                                                                                                                                                                                                                       
+-------------------- ---------- -------- ---------------------------- --------------------------                                                                                                                                                                                                                                                                                                                
+JONES                      2975 81/04/02 RESEARCH                     DALLAS                                                                                                                                                                                                                                                                                                                                    
+BLAKE                      2850 81/05/01 SALES                        CHICAGO                                                                                                                                                                                                                                                                                                                                   
+
+SQL> SELECT E.ENAME, E.SAL, E.COMM, D.DNAME
+  2  FROM EMP E, DEPT D
+  3  WHERE E.DEPTNO = D.DEPTNO
+  4  AND COMM IS NOT NULL;
+
+ENAME                       SAL       COMM DNAME                                                                                                                                                                                                                                                                                                                                                                
+-------------------- ---------- ---------- ----------------------------                                                                                                                                                                                                                                                                                                                                         
+ALLEN                      1600        300 SALES                                                                                                                                                                                                                                                                                                                                                                
+WARD                       1250        500 SALES                                                                                                                                                                                                                                                                                                                                                                
+MARTIN                     1250       1400 SALES                                                                                                                                                                                                                                                                                                                                                                
+
+SQL> select e.ename, e.sal, d.danme, d.loc
+  2  from emp e, dept d
+  3  where e.deptno = d.deptno
+  4  and e.deptno = (select deptno from emp where ename = "SCOTT");
+select e.ename, e.sal, d.danme, d.loc
+                       *
+ERROR at line 1:
+ORA-00904: "D"."DANME": invalid identifier 
+
+
+SQL> select e.ename, e.sal, d.dname, d.loc
+  2  from emp e, dept d
+  3  where e.deptno = d.deptno
+  4  and e.deptno = (select deptno from emp where ename = "SCOTT");
+and e.deptno = (select deptno from emp where ename = "SCOTT")
+                                                     *
+ERROR at line 4:
+ORA-00904: "SCOTT": invalid identifier 
+
+
+SQL> select e.ename, e.sal, d.danme, d.loc
+  2  from emp e, dept d
+  3  where e.deptno = d.deptno
+  4  and e.deptno = (select deptno from emp where ename = "SMITH");
+select e.ename, e.sal, d.danme, d.loc
+                       *
+ERROR at line 1:
+ORA-00904: "D"."DANME": invalid identifier 
+
+
+SQL> select e.ename, e.sal, d.dname, d.loc
+  2  from emp e, dept d
+  3  where e.deptno = d.deptno
+  4  and e.deptno = (select deptno from emp where ename = "SMITH");
+and e.deptno = (select deptno from emp where ename = "SMITH")
+                                                     *
+ERROR at line 4:
+ORA-00904: "SMITH": invalid identifier 
+
+
+SQL> 
+
+Select e.ename, e.sal, d.dname, d.loc
+from emp e, dept d
+where e.deptno = d.deptno
+and e.deptno = (select deptno from emp where ename = 'SMITH');
+
+SQL> CREATE TABLE CUSTOMER (
+  2  CUS_ID INT PRIMARY KEY
+  3  , CUS_NAME VARCHARS;;;
+, CUS_NAME VARCHARS;;
+                   *
+ERROR at line 3:
+ORA-00911: invalid character
+
+
+SQL> -- 고객을 정의하자
+SQL> CREATE TABLE CUSTOMER (
+  2  CUS_ID NUMBER PRIMARY KEY
+  3  ,CUS_NAME VARCHAR2(20) NOT NULL
+  4  ,PHONE VARCHAR2(16) NOT NULL);
+
+Table created.
+
+SQL> CREATE SEQUENCE SEQ_CUS
+  2  INCREMENT BY 1
+  3  START WITH 1;
+CREATE SEQUENCE SEQ_CUS
+*
+ERROR at line 1:
+ORA-01031: insufficient privileges
+
+
+SQL> CONN SYSTEM/1234
+Connected.
+SQL> GRANT CREATE SEQUENCE TO JAVA;
+
+Grant succeeded.
+
+SQL> CONN JAVA/1234
+Connected.
+SQL> CREATE SEQUENCE SEQ_CUS
+  2  INCREMENT BY 1
+  3  START WITH 1;
+
+Sequence created.

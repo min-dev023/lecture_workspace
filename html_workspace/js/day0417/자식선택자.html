@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<style>
+    /* 문서 내의 box 라는 요소의 직계자식의 폰트색을 빨간색 
+        선택자 중, 아이디를 붙인 선택자는 #을 앞에 표기해야함    
+    */
+    #box > h1{
+        color: red;
+    }
+</style>
+<body>
+    <!-- div = division 화면분할 -->
+     <div id="box">
+        <h1>제목 1</h1>
+        <p></p>
+        <div>
+            <h1>제목 2</h1>
+        </div>
+     </div>
+</body>
+</html>

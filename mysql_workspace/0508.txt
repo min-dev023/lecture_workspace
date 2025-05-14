@@ -1,0 +1,34 @@
+# mysql -h localhost -u root -p
+# show databases;
+# show tables;
+mysql에서 제약조건 부여하여 테이블 만들기
+
+CREATE TABLE MEMBER2(
+member2_id int primary key auto_increment
+,user_id varchar(20) unique
+,name varchar(15) not null
+,regdate timestamp default now()
+,gender char(6) check (gender = '남' or gender = '여')
+);
+
+insert into member2(user_id, name, gender) values
+('scott', '스캇', '여');
+
+# 정규화
+: 데이터베이스 테이블 설계 시, 중복된 데이터가 존재할 경우 무결성이 깨질 수 있으므로,
+중복된 데이터는 별도의 테이블로 분리시키는 기법.
+
+# JOIN
+: 정규화에 의해 물리적으로 분리된 테이블을 마치 하나의 테이블처럼 select 하는 쿼리 기법
+
+
+물리적으로 분리된 emp와 dept를 마치 하나의 테이블처럼 합쳐서 보여주기
+아무런 조건 없이 사용하면 N X M 개의 레코드가 생성되므로,
+두 테이블의 공통이 되는 키값을 이용해 조건을 부여하면 정상적으로 레코드 합치기 가능.
+
+select e.empno, e.ename, e.sal, d.deptno, d.dname
+from emp e, dept d
+where e.deptno = d.deptno
+;
+
+

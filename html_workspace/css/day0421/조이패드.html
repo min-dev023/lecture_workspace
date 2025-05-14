@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    #wrapper {
+        width: 902px;
+        height: 600px;
+        margin: auto;
+        /* text-align: center; */
+        border: 2px solid black;
+        /* position: absolute; */
+    }
+    #aside {
+        width: 200px;
+        height: 600px;
+        background-color: skyblue;
+        border-right: 2px solid black;
+        float: left;
+    }
+    #session {
+        width: 700px;
+        height: 600px;
+        background-color: gainsboro;
+        float: left;
+        position: relative;
+        background-image: url(../../images/plane/bg.jpg);
+    }
+    #aside button {
+        width: 55px;
+        height: 55px;
+        margin: 3px;
+        border-radius: 40%;
+        background-color: rgb(201, 228, 238);
+    }
+    #aside button:hover{
+        border: 3px solid rgb(60, 74, 139);
+        border-radius: 40%;
+    }
+    #imgHa {
+        width: 40px;
+        height: 40px;
+        position: absolute; /* 자신의 부모 요소를 기준으로 배치*/
+        left: 10px;
+        top: 10px;
+    }
+</style>
+<script>
+    let x = 0;
+    let y = 0;
+    let add = 10;
+    
+    function btnMove(a) {
+        let hero = document.querySelector("#imgHa");
+
+        if (x <= 0 && a == 2 || y >= 560 && a == 3 || x >=650 && a == 4 || y <= 0 && a == 1) {
+            // x = -5;
+            return 0;
+        }
+        else if (a == 1) {
+            y = y - add;
+            hero.style.top= y + "px";
+            console.log("x = ", x, ", y = ", y);
+        }
+        else if (a == 2) {
+            x = x - add;
+            hero.style.left= x + "px";
+            console.log("x = ", x, ", y = ", y);
+        }
+        else if (a == 3) {
+            y = y + add;
+            hero.style.top= y + "px";
+            console.log("x = ", x, ", y = ", y);
+        }
+        else {
+            x = x + add;
+            hero.style.left= x + "px";
+            console.log("x = ", x, ", y = ", y);
+        }
+        console.log("막줄 x = ", x, ", y = ", y);
+    }
+    
+</script>
+<body>
+    <div id="wrapper">
+        <div id="aside">
+            <table>
+                <tr>
+                    <td></td>
+                    <td><button onclick="btnMove(1)">↑</button></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><button onclick="btnMove(2)">←</button></td>
+                    <td><button onclick="btnMove(3)">↓</button></td>
+                    <td><button onclick="btnMove(4)">→</button></td>
+                </tr>
+            </table>
+        </div>
+        <div id="session">
+            <img id="imgHa" src="../../images/plane/plane.png">
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    a {
+        border: 2px solid black;
+        border-radius: 50%;
+        display: inline-block;
+        width: 120px;
+        height: 30px;
+        padding: 20px;
+        text-align: center;
+        text-decoration: none;
+        background-color: pink;
+        color: black;
+    }
+    a:hover {
+        background-color: hotpink;
+    }
+    img {
+        width: 350px;
+        height: 400px;
+    }
+</style>
+<script>
+    let num = 1;
+    function clickCard() {
+        num++;
+        console.log("clickCard");
+
+        let doc = document.querySelector("img").src="../images/card/" + (num % 3 == 0 ? "joker" : "h" + num) +".jpg";
+        
+        if(num >=10) {
+            num = 0;
+        }
+
+    }
+</script>
+<body>
+    <div id="wrapper">
+        <!-- 자바스크립트 코드를 작성할 수 있는 영역
+         1) <script> 태그
+         2) onClick과 같은 이벤트 핸들러
+         3) a 태그에 javascript : 접두어 붙이기 -->
+        <a href="javascript:clickCard()">다음 카드</a>
+        <div>
+            <img id="card" src="../images/card/h1.jpg">
+        </div>
+
+    </div>
+</body>
+</html>

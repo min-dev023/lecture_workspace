@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script>
+    // let y = prompt("성적 입력");
+
+    // if(y >= 90) {
+    //     document.write("A");
+    // } else if (y < 90 && y >= 80) {
+    //     document.write("B");
+    // } else if (y < 80 && y >= 70) {
+    //     document.write("C");
+    // } else if (y < 70 && y >= 60) {
+    //     document.write("D");
+    // } else {
+    //     document.write("F");
+    // }
+    
+
+    function btn() {
+        console.log(document.getElementById("#num").value);
+    }
+</script>
+<body>
+    <input id="num" type="number">
+    <button id="submit" onclick="btn()">submit</button>
+    <p id="showScore">점수</p>
+</body>
+</html>

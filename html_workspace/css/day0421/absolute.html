@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    #wrapper {
+        width: 800px;
+        height: 800px;
+        background-color: yellow;
+        margin: auto;
+        position: relative; /*이 속성은 자식인 img 때문에 부여함*/
+        overflow: hidden; /*영역을 벗어나느 경우, 안보이게 처리*/
+    }
+    /* 주의 ! 포지션을 적용할 때는 부모를 포함해, 조상 중 단 하나라도 \
+    relative or absolute가 적용되어 있어야 위치가 깨지지 않음 */
+    img {
+        /*  css의 포지션 속성 중 자신의 부모 요소를 기준으로 한 위치 속성을 절대 위치 즉 absolute 라고 함 */
+        position: absolute; /* 부모인 wrapper를 기준으로 위치시킴*/
+        top: 100px;
+        left: 100px;
+    }
+</style>
+<body>
+    <div id="wrapper">
+        <img src="../../images/tenor.gif" style="width: 50px; border: 2px solid black;">
+    </div>
+</body>
+</html>

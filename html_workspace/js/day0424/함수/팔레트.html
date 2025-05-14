@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    #wrapper {
+        width: 700px;
+        height: 615px;
+        text-align: center;
+        margin: auto;
+        background-color: gray;
+        border: 5px solid black;
+    }
+    #header {
+        width: 700px;
+        height: 80px;
+        border-bottom: 5px solid black;
+    }
+    #content {
+        width: 700px;
+        height: 520px;
+    }
+    #header div {
+        width: 100px;
+        height: 80px;
+        float: left;
+        bo
+    }
+    #header div:nth-child(1){background-color: red;}
+    #header div:nth-child(2){background-color: orange;}
+    #header div:nth-child(3){background-color: yellow;}
+    #header div:nth-child(4){background-color: green;}
+    #header div:nth-child(5){background-color: blue;}
+    #header div:nth-child(6){background-color: navy;}
+    #header div:nth-child(7){background-color: purple;}
+</style>
+<script>
+    // 문서 내의 content 아이디를 갖는 요소의 배경색 css를 바꿈
+    function setColor(color) {
+        let content = document.getElementById("content");
+        // content.style.background = "red";
+
+        switch(color) {
+            case 1 :
+                content.style.background = "red";
+                break;
+            case 2 :
+                content.style.background = "orange";
+                break;
+            case 3 :
+                content.style.background = "yellow";
+                break;
+            case 4 :
+                content.style.background = "green";
+                break;
+            case 5 :
+                content.style.background = "blue";
+                break;
+            case 6 :
+                content.style.background = "navy";
+                break;
+            case 7 :
+                content.style.background = "purple";
+                break;
+        }
+
+    }
+</script>
+<body>
+    <div id="wrapper">
+        <div id="header">
+            <div onclick="setColor(1)"></div>
+            <div onclick="setColor(2)"></div>
+            <div onclick="setColor(3)"></div>
+            <div onclick="setColor(4)"></div>
+            <div onclick="setColor(5)"></div>
+            <div onclick="setColor(6)"></div>
+            <div onclick="setColor(7)"></div>
+        </div>
+        <div id="content">
+
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<!-- css의 3가지 적용 방법 중, 내부 css는 style 태그 안에 css의 코드를 작성
+    하는 방법으로, 가장 보편적인 방법 -->
+<!-- <style>
+    button {
+        border-color: #99627A;
+        background-color: #E7CBCB;
+        width: 490px;
+    }
+    table {
+        border: solid 2px;
+        border-color: #99627A;
+        text-align: center;
+    }
+    tr, td {
+        font-size: 9px;
+    }
+</style> -->
+
+<!-- 스타일의 재사용성을 높이기 위해, 여러 문서에 걸쳐서 사용되는 css는 공통의 파일로 저장해놓고 링크시킨다. -->
+<link rel="stylesheet" href="./css/style.css">
+
+<body>
+    <table border="1px">
+        <tr style="background-color:  #99627A;">
+            <th colspan="2">회원가입 폼</th>
+        </tr>
+        <tr>
+            <td>ID</td>
+            <td><input type="text" placeholder="아이디를 입력하세요." style="width: 380px;"></td>
+        </tr>
+        <tr>
+            <td>PASSWORD</td>
+            <td><input type="password" maxlength="9" placeholder="비밀번호를 입력하세요" style="width: 380px;"></td>
+        </tr>
+        <tr>
+            <td>이름</td>
+            <td><input type="text" placeholder="이름을 입력하세요." style="width: 380px;"></td>
+        </tr>
+        <tr>
+            <td>이메일</td>
+            <td>
+                <input type="email" placeholder="이메일" style="width: 227px;"> @ 
+                <select style="width: 140px;">
+                    <option value="">naver.com</option>
+                    <option value="">google.com</option>
+                    <option value="">daum.com</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>메일 수신 여부</td>
+            <td> 
+                <input type="radio" name="mailRa">네
+                <input type="radio" name="mailRa">아니오
+            </td>
+        </tr>
+        <tr>
+            <td>기술</td>
+            <td>
+                <input type="checkbox" name="lang"> Java
+                <input type="checkbox" name="lang"> C
+                <input type="checkbox" name="lang"> Python
+                <input type="checkbox" name="lang"> Linux
+                <input type="checkbox" name="lang"> Spring
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <button>가입</button>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

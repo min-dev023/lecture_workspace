@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    #wrapper {
+        width: 800px;
+        height: 650px;
+    }
+    #aside {
+        float: left;
+        width: 200px;
+        height: 650px;
+        background-color: antiquewhite;
+        text-align: center;
+    }
+    #session {
+        float: left;
+        width: 600px;
+        height: 650px;
+        background-color: bisque;
+        text-align: center;
+    }
+    img {
+        width: 80px;
+        height: 80px;
+    }
+    /* 이미지에 마우스가 올라간 상태 마저도 선택자가 될 수 있다.*/
+    #aside img:hover{
+        border: 3px solid blue;
+        border-radius: 50%;
+    }
+    #imgWar {
+        width: 400px;
+        height: auto;
+    }
+</style>
+<script>
+    let opacity = 1.0;
+
+    function setOpa(a) {
+        if (a == 1) {
+            console.log("투명도 감소");
+            
+            // console.log(op);
+            opacity = Number((opacity - 0.1).toFixed(1));
+            console.log(opacity);
+            document.querySelector("#imgWar").style.opacity = opacity;
+
+            if (opacity <= 0) {
+                opacity = 0;
+                console.log(opacity);
+            }
+        }
+        else {
+            console.log("투명도 증가");
+            
+            opacity = Number((opacity + 0.1).toFixed(1));
+            console.log(opacity);
+            document.querySelector("#imgWar").style.opacity = opacity;
+
+            if (opacity >= 1) {
+                opacity = 1;
+                console.log(opacity);
+            }
+        }
+    }
+</script>
+<body>
+    <div id="wrapper">
+        <div id="aside">
+            <div> 
+                <img id="minBtn" src="../images/minus_btn.png" onclick="setOpa(1)">
+                <img id="addBtn" src="../images/plus_btn.png" onclick="setOpa(2)">
+                <br> <p>투명도 조절</p>
+            </div>
+        </div>
+        <div id="session">
+            <img id="imgWar" src="../images/warior.png">
+        </div>
+    </div>
+</body>
+</html>

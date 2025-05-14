@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        button {
+            width: 100px;
+            height: 50px;
+            background-color: pink;
+            border-radius: 50%;
+        }
+        body {
+            /* margin: auto; */
+        }
+    </style>
+    <script>
+        // 개발자가 프로그램을 실행하면, 브라우저 내의 js 엔진이 위부터 차례대로
+        // 아랫줄로 내려가며 코드를 순차 수행.
+        {
+            console.log("김민지");
+        }
+
+        let num = 0;
+
+        function clickName() {
+            // alert("클릭됨.")
+            
+            console.log(num++);
+            // console.log(num);
+        }
+    </script>
+</head>
+<body>
+    <!-- onClick은 js가 아닌 html에서 지원되는 이벤트 핸들러
+     프로그램이 아니기 때문에 대소문자 가리지 않음 -->
+    
+    <button onclick="clickName();">클릭</button>
+</body>
+</html>

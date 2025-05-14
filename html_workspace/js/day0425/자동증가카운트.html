@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body {
+        text-align: center;
+        margin: 3px;
+    }
+    input {
+        width: 304px;
+        height: 300px;
+        font-size: 200px;
+        font-weight: bold;
+        color: red;
+        text-align: right;
+    }
+    #btn1 {
+        width: 154px;
+        height: 100px;
+    }
+    #btn2 {
+        width: 154px;
+        height: 100px;
+    }
+    #btn3 {
+        width: 312px;
+        height: 100px;
+    }
+</style>
+<script>
+    let num = 0;
+    let onOff = 0; 
+
+    function setReset() {
+        console.log("reset");
+
+        num = 0;
+        document.querySelector("input").value = "";
+    }
+
+    function setStop() {
+        console.log("stop");
+        document.querySelector("input").value = "";
+    }
+
+    function setCount() {
+
+        document.querySelector("input").value = num++;
+        
+        setTimeout("setCount()", 100);
+    }
+
+    // 문서가 로드 되면.. 즉 html 끝나는 태그까지 모두 읽으면
+    addEventListener("load", function(){
+        let btn = document.querySelector("#btn1");
+        let stop = document.querySelector("#btn2");
+        let reset = document.querySelector("#btn3");
+
+        btn.addEventListener("click", function(){
+            this.disabled = true;
+            stop.disabled = false;
+            setCount();
+        });
+
+        stop.addEventListener("click", function(){
+            this.disabled = true;
+            btn.disabled = false;
+            setStop();
+        });
+
+        reset.addEventListener("click", function(){
+            setReset();
+        });
+    });
+</script>
+<body>
+    <button id="btn1">START</button>
+    <button id="btn2">END</button><br>
+    <input type="text"><br>
+    <button id="btn3">RESTART</button><br>
+</body>
+</html>

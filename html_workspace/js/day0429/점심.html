@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script src="../lib/common.js"></script>
+<script>
+    let arrFood = new Array();
+    arrFood[0] = "마라탕";
+    arrFood[1] = "훠궈";
+    arrFood[2] = "라멘";
+    arrFood[3] = "탄탄면";
+    arrFood[4] = "마라샹궈";
+    arrFood[5] = "엽떡";
+    arrFood[6] = "짜장면";
+    arrFood[7] = "닭발";
+    arrFood[8] = "곱창";
+    arrFood[9] = "칼국수";
+    
+    function rsp() {
+        let num = getRandom(arrFood.length);
+        console.log(num);
+        let text = document.querySelector("h5");
+
+        text.innerText = arrFood[num];
+    }
+
+    addEventListener("load", function(){
+        document.querySelector("button").addEventListener("click", function(){
+            rsp();
+        });
+    });
+
+</script>
+<body>
+    <div>
+        <button>메뉴</button>
+        <h5>...</h5>
+    </div>
+</body>
+</html>

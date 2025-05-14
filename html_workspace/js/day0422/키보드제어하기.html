@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script>
+    function init() {
+        // 이미 자바스크립트 언어 자체적으로, 이벤트가 발생할 때마다 자동으로
+        // 해당 이벤트에 대한 모든 ~~ 정보를 가진 객체를 자동으로 생성해주는데
+        // 이 객체를 가리겨 event 객체라 한다. 
+
+        console.log(event.keyCode);
+    }
+</script>
+<body onkeydown="init()">
+    <input>
+</body>
+</html>

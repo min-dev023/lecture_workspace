@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    #wrapper {
+        margin: auto;
+        text-align: center;
+    }
+    img {
+        width: 200px;
+        height: 200px;
+    }
+    #selectFruit {
+        text-align: center;
+    }
+</style>
+<script>
+
+    function go() {
+        let m = document.getElementById("selectFruit").value;
+        console.log(m);
+
+        let result  = document.querySelector("img");
+
+        if(m == "apple") {
+            console.log("사과");
+            result.src = "../images/fruit/"+ m +".png";
+        } else if(m == "mango") {
+            console.log("망고");
+            result.src = "../images/fruit/"+ m +".png";
+        } else if(m == "grape") {
+            console.log("포도");
+            result.src = "../images/fruit/"+ m +".png";
+        } else if(m == "banana") {
+            console.log("바나나");
+            result.src = "../images/fruit/"+ m +".png";
+        } else if(m == "berry") {
+            console.log("딸기");
+            result.src = "../images/fruit/"+ m +".png";
+        } else {
+            alert("다시 선택");
+        }
+    }
+</script>
+<body>
+    <div id="wrapper">
+        <div id="select">
+            <select id="selectFruit" style="width: 140px;">
+                <option value="apple">사과</option>
+                <option value="mango">망고</option>
+                <option value="grape">포도</option>
+                <option value="banana">바나나</option>
+                <option value="berry">딸기</option>
+            </select>
+            <button id="btn" onclick="go()">선택</button>
+        </div>
+        <div>
+            <img  src="../images/fruit/apple.png">
+        </div>
+    </div>
+</body>
+</html>
+<!-- http://iconfinder.com 무료 이미지 사이트-->

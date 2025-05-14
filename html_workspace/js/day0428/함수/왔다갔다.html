@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    #stage {
+        width: 1400px;
+        height: 400px;
+        background-color: lightgreen;
+        position: relative;
+    }
+    button {
+        width: 50px;
+        height: 40px;
+    }
+</style>
+<script>
+    // 자바스크립트 언어는 2가지 플랫폼으로 개발가능
+    // 1) 브라우저 기반 js
+    // 2) Node.js 기반 js
+
+    let rect;
+    let x = 0;
+    let flag = true;
+    let autoFlag = false;
+    let autoVal;
+
+    function move() {
+        // 문서 내의 rect 라는 요소에 적용된 css중 left 값을 증가시키다가, 일정시점에 도달 시 방향 전환
+
+        if(flag) {
+            x += 5;
+        } else {
+            x -= 5;
+        }
+        rect.style.left = x + "px";
+
+        // 우측 경계벽을 만나거나 또는 좌측 시작 벽을 만나면 방향은 뒤집혀야 함
+        if(x >= 1400 || x <= 0) flag = !flag;
+        else flag != flag; 
+    }
+    function moveAuto() {
+        // autoVal = setInterval("move()", 1);
+        if(autoFlag) { move();}
+    }
+
+    function createRect() {
+        rect = document.createElement("div");
+        let stage = document.getElementById("stage");
+        
+        rect.style.width = 100 + "px";
+        rect.style.height = 100 + "px";
+        rect.style.backgroundColor = "gray";
+        rect.style.position = "absolute";
+        rect.style.left = 0 + "px";
+        rect.style.top = 150 + "px";
+        rect.style.borderRadius = 50 + "px";
+
+        stage.appendChild(rect);
+    }
+
+    addEventListener("load", function(){
+        // 사각형 만들기...
+        createRect();
+
+        let m = document.querySelector("button:nth-child(1)").addEventListener("click", function(){
+            console.log("a");
+            move();
+        });
+        let a = document.querySelector("button:nth-child(2)").addEventListener("click", function(){
+            console.log("b");
+            autoFlag = true;
+        });
+        let s = document.querySelector("button:nth-child(3)").addEventListener("click", function(){
+            console.log("c");
+            autoFlag = false;
+        });
+
+        // 멈추지 않는 루프를 하나 실행, setTimeout()은 지정한 시간이 흐르고 나서
+        // 함수를 호출한 다음에 자동 소멸하지만, setInterval()은 지정한 시간 간격으로
+        // 끝없이 지정한 함수를 호출하는 루프함수.
+        setInterval("moveAuto()", 10);
+    });
+</script>
+<body>
+    <button>수동</button>
+    <button>자동</button>
+    <button>멈춤</button>
+    <div id="stage"></div>
+</body>
+</html>

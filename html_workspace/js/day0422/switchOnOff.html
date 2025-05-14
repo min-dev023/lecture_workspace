@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=o-0, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    #wrapper {
+        width: 900px;
+        height: 600px;
+        margin: auto;
+    }
+    #aside {
+        width: 100px;
+        height: 100%;
+        float: left;
+        background-color: lemonchiffon;
+    }
+    #section {
+        width: 800px;
+        height: 100%;
+        float: left;
+        background-color: gray;
+
+        /* 자식 중 하나라도 absolue, relative 가 적용되어 있으면
+        부모인 내가 그 기준을 마련해야하므로, absolute, relative 중
+        하나는 적용 되어있어야함. */
+        position: relative;
+    }
+    #btnSwi {
+        width: 100px;
+        height: 100px;
+    }
+    #room {
+        width: 100%;
+        height: 100%;
+
+        position: absolute;
+        left: 0px;
+        top: 0px;
+    }
+    #dark {
+        width: 100%;
+        height: 100%;
+        background-color: black;
+        /* 부모인 section을 기준으로 위치를 결정하는 absolute로 지정 */
+        position: absolute;
+        top: 0px;
+        opacity: 0.8;
+    }
+</style>
+<script>
+    let flag = false;
+    console.log("1" ,flag);
+
+    function onoff() {
+        // 스위치
+        flag = !flag;
+
+        let img  = document.querySelector("img");
+
+        let light = (flag)? "on": "off";
+        img.src = "../images/light/switch_"+ light +".png"
+
+        // 방 투명도
+        let darknum = (light == "on") ? 0 : 0.8;
+        console.log("darknum", darknum);
+        
+        document.querySelector("#dark").style.opacity = darknum;
+        
+        console.log("2", flag);
+    }
+</script>
+<body>
+    <br>
+    <div id="wrapper">
+        <div id="aside">
+            <img id="btnSwi" onclick="onoff()" src="../images/light/switch_off.png">
+            스위치
+        </div>
+        <div id="section">
+            <img id="room" src="../images/light/room.jpg">
+            <div id="dark" ></div>
+        </div>
+    </div>
+</body>
+</html>

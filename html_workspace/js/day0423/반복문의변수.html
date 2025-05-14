@@ -1,0 +1,321 @@
+<script>
+    // for(let i = 1; i <= 10; i ++) {
+    //     // document.write(i);
+    //     if(i % 2 == 0) {
+    //         document.write("<b>"+ i + "</b>");
+    //     }
+    //     // document.write(i + "\n");
+    //     // document.write("<b>나<br></b>");
+    // }
+
+    document.write("문제 5) <br>");
+        // 문제 5
+        for(let i = 1; i <= 10; i ++) {
+            document.write("☆"+ "\n");
+        }
+        document.write("<br><br>");
+
+    // 문제 6
+    document.write("문제 6) <br>");
+        for(let i = 2; i <= 10; i+=2) {
+            document.write(i);
+            if(i < 10) {
+                document.write(", ");
+            }
+        }
+        document.write("<br><br>");
+
+
+    // 문제 7
+    document.write("문제 7) <br>");
+        let p = 1;
+
+        for(; p <= 5;) {
+            document.write(p);
+            p++;
+        }
+        document.write("<br><br>");
+
+    // 문제 8
+    document.write("문제 8) <br>");
+        for(let i = 1; i <= 96; i ++) {
+
+            if(i %2 ==0) {
+                document.write("♡");
+            } else {
+                document.write("♥");
+            }
+
+            // document.write("♡");
+            if (i % 10 == 0) {
+                document.write("<br>");
+            }
+        }
+        document.write("<br><br>");
+
+    // 문제 9
+    document.write("문제 9) <br>");
+        for(let i = 1; i <= 25; i ++) {
+            if (i % 5 == 0) {
+                document.write("★<br>");
+            } else {
+                document.write("☆");
+            }
+        }
+        document.write("<br><br>");
+
+    // 문제 10
+    document.write("문제 10) <br>");
+        // 반복문에서 중요한 것은 횟수. 반복문의 구조를 작성한 후 내용을 봐야함
+        for(let i = 1; i <= 10; i ++) {
+            // 템블릿 문자열 표기 (쌍따옴표 대신 백틱`으로)
+            document.write(i +"회 반복<br>");
+        }
+        document.write("<br><br>");
+
+    // 문제 11
+    document.write("문제 11) <br>");
+        for(let i = 2; i <= 10; i+=2) {
+            document.write(i +"회 반복<br>");
+        }
+        document.write("<br><br>");
+
+    // 문제 12
+    document.write("문제 12) <br>");
+        for(let i = 1; i <= 10; i++) {
+            if (i % 2 == 0) {
+                document.write("짝수<br>");
+            } else {
+                document.write(i +"<br>");
+            }
+        }
+        document.write("<br><br>");
+
+    document.write("문제 13) <br>");
+        for(let i = 1; i <= 10; i++) {
+            if (i % 3 == 0) {
+                document.write("★<br>");
+            } else {
+                document.write(i +"회 반복<br>");
+            }
+        }
+        document.write("<br><br>");
+
+    document.write("문제 14) <br>");
+        for(let i = 1; i <= 19; i++) {
+            if (i % 5 == 0) {
+                document.write("★ ");
+            } else {
+                document.write("☆ ");
+            }
+        }
+        document.write("<br><br>");
+
+    document.write("문제 15) <br>");
+        for(let i = 105; i < 109; i++) {
+            document.write(i +"<br>");
+        }
+        document.write("<br><br>");
+
+    document.write("문제 16) <br>");
+        for(let i = 1; i <= 9; i++) {
+            let num = (3*i);
+            document.write("3 * " + i +" = " + num + "<br>");
+        }
+        document.write("<br><br>");
+
+    document.write("문제 17) <br>");
+
+        // let iNum = prompt("구구단 숫자 입력");
+        // iNum = parseInt(iNum);
+
+        // document.write(iNum + "단 출력<br>");
+        // for(let i = 1; i <= 9; i++) {
+        //     let num = (iNum * i);
+        //     document.write(iNum + " * " + i +" = " + num + "<br>");
+        // }
+        document.write("<br><br>");
+
+    document.write("문제 18) <br>");
+        for(let i = 1; i <= 9; i++) {
+            let num = (3*i);
+            document.write(num + " = " + "3 * " + i + "<br>");
+        }
+        document.write("<br><br>");
+
+    document.write("문제 19) <br>");
+        for(let i = 1; i <= 8; i++) {
+            let second = (i + 1);
+            let result = (i * second);
+            document.write(i + " * " + second +" = " + result + "<br>");
+        }
+        document.write("<br><br>");
+
+    document.write("문제 20) <br>");
+        for(let i = 9; i >= 1; i--) {
+            let result = (5 * i);
+            document.write("5 * " + i +" = " + result + "<br>");
+        }
+        document.write("<br><br>");
+
+    document.write("문제 21) <br>");
+        for(let i = 1; i <= 10; i++) {
+            if( i <= 5) {
+                document.write("☆ ");
+            } else {
+                document.write("★ ");
+            }
+        }
+        document.write("<br><br>");
+
+    document.write("문제 23) <br>");
+
+        // let iPP = parseInt(prompt("숫자 입력"));
+        // for(let i = iPP; i >= 1; i--) {
+        //     if(i > 1) {
+        //         document.write(i + ", ");
+        //     } else {
+        //         document.write(i + "<br>");
+        //     }
+        // }
+        document.write("<br><br>");
+
+    document.write("문제 24) <br>");
+
+        // let iNum = parseInt(prompt("숫자 입력"));
+        // let min = (Math.round(iNum) - 1);
+        // let max = (Math.round(iNum) + 1);
+        
+        // for(let i = min; i <= max; i++) {
+        //     if(i != max) {
+        //         document.write(i + ", ");
+        //     } else {
+        //         document.write(i + "<br>");
+        //     }
+        // }
+        document.write("<br><br>");
+
+    document.write("문제 25) <br>");
+
+        // let iHH = parseInt(prompt("숫자 입력"));
+        
+        // for(let i = 1; i <= iHH; i++) {
+        //     document.write("★");
+        // }
+        document.write("<br><br>");
+
+    document.write("문제 26) <br>");
+        
+        for(let i = 1; i <= 100; i++) {
+            document.write("★");
+
+            if (i % 3 == 0) {
+                document.write("<br>");
+            }
+        }
+        document.write("<br><br>");
+
+    document.write("문제 27) <br>");
+        
+        // let iNum = prompt("숫자 입력");
+
+        // for(let i = 1; i <= iNum; i++) {
+        //     for(let j = 1; j <= iNum; j++) {
+        //         document.write("★");
+        //     }
+        //     document.write("<br>");
+
+        // }
+        document.write("<br><br>");
+    
+    document.write("문제 29) <br>");
+        document.write("<table style='width: 300; height: 250; border: 1px solid black;'>");
+            for (let i = 1; i <= 3; i++){
+                document.write("<tr>");
+                for(let j = 1; j <= 5; j++) {
+                    document.write("<td style='border: 1px solid black;'>" + j + "</td>");
+                }
+                document.write("</tr>");
+            }
+        document.write("</table>");
+        document.write("<br><br>");
+
+    document.write("문제 30) <br>");
+        for(let i = 1; i <= 4; i++) {
+            for(let j = 1; j <= 5; j++) {
+                document.write("★ ");
+            }
+            document.write("<br>");
+        }
+        document.write("<br><br>");
+
+    document.write("문제 31) <br>");
+        let row = prompt("행");
+        let col = prompt("열");
+        
+        document.write("<table style='width: 300; height: 250; border: 1px solid black;'>");
+            for (let i = 1; i <= row; i++){
+                document.write("<tr>");
+                for(let j = 1; j <= col; j++) {
+                    document.write("<td style='border: 1px solid black;'>" + j + "</td>");
+                }
+                document.write("</tr>");
+            }
+        document.write("</table>");
+        document.write("<br><br>");
+
+    document.write("문제 32) <br>");
+        for(let i = 1; i <= 5; i ++) {
+            for(let j = 1; j <= 4; j++) {
+                document.write("☆");
+            }
+            document.write("★<br>");
+        }
+        document.write("<br><br>");
+    
+    document.write("문제 33) <br>");
+        for(let i = 2; i <= 9; i++) {
+            for(let j = 2; j <= 9; j++) {
+                document.write(j + " * 1 = " + j + "       ");
+            }
+            document.write("<br>");
+        }
+        document.write("<br><br>");
+    
+    document.write("문제 34) <br>");
+        // for(let i = 1; i <= 9; i++) {
+        //     for(let j = 2; j <= 9; j++) {
+        //         document.write(j + " * " + i + " = " + (i * j) + "\n");
+        //     }
+        //     document.write("<br>");
+        // }
+        // document.write("<br><br>");
+
+        let strTd = "<td style='width: 70px; height: 30px; padding: 5px; border: 1px solid black;'>" ;
+
+        document.write("<table style='text-align: center;'>");
+
+                for (let i = 1; i <= 9; i++){
+                    document.write("<tr>");
+                    for(let j = 2; j <= 9; j++) {
+                        document.write(strTd + j + " * " + i + " = " + (i * j) + "</td>");
+                    }
+                    document.write("</tr>");
+                }
+            document.write("</table>");
+            document.write("<br><br>");
+
+        document.write("<table style='text-align: center;'>");
+
+                for (let i = 9; i >= 1; i--){
+                    document.write("<tr>");
+                    for(let j = 2; j <= 9; j++) {
+                        document.write(strTd + j + " * " + i + " = " + (i * j) + "</td>");
+                    }
+                    document.write("</tr>");
+                }
+            document.write("</table>");
+            document.write("<br><br>");
+
+</script>
+

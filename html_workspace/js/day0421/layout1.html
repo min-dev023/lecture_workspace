@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    #container {
+        width: 500px;
+        height: 600px;
+        margin: auto;
+    }
+    #header {
+        background-color: skyblue;
+    }
+    #aside {
+        background-color: lemonchiffon;
+        float: left; /* normal position에서 벗어남 */
+        width: 100px;
+        height: 400px;
+    }
+    #session {
+        background-color: pink;
+        width: 400px;
+        height: 400px;
+        float: left; 
+        /* block 요소를 float 시키면 서로 배척하는 성질이 사라짐
+        주의 - 인라인으로 변하는 것은 아니다. why? 만약 float으로 인해 인라인으로
+        변할 경우 width, height가 적용이 안되어야 한다.
+        하지만, block은 float 시키면 width, height, margin, padding 다 가능 */
+    }
+    #footer {
+        background-color: plum;
+        /* height: 50px;
+        width: 500px; */
+        clear:both; 
+        /* left or right로 float되어 있는 요소로 인하여 공간이 비어있는 상황에 대해
+        해당 공간을 강제 인식시키는 속성. 따라서 이 속성을 적용하면, float 된 공간을 인식해서 파고 들어가는것을 방지. */
+    }
+</style>
+<body>
+    <div id="container">
+        <div id="header">header</div>
+        <div id="aside">aside</div>
+        <div id="session">session</div>
+        <div id="footer">footer</div>
+    </div>
+</body>
+</html>

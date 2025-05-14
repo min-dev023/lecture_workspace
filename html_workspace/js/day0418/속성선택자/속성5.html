@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    button {
+        margin : 10px;
+        width: 60px;
+        height: 30px;
+    }
+    /* class 값 중에 btn이 포함되어 있는 것 */
+    button[class*="btn"] {
+        background-color: blueviolet;
+        border-radius: 100px;
+        color: white;
+    }
+</style>
+<body>
+    <button class="btn-primary" onclick="">버튼1</button>
+    <br>
+    <button class="secondary-btn">버튼2</button>
+    <br>
+    <button class="button">버튼3</button>
+</body>
+</html>

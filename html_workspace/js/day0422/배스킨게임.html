@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    #num {
+        font-size: 200px;
+        color: red;
+    }
+    button {
+        width: 100px;
+        height: 50px;
+    }
+    
+</style>
+<script>
+    let count = 0;
+
+    function upCnt() {
+        count++;
+
+        let number= document.getElementById("num");
+        number.innerText= (count % 5 == 0 ? "사과" : count);
+        
+
+    }
+</script>
+<body>
+    <div>
+        <button onclick="upCnt()">카운터 증가</button>
+        <div id="num">
+            0
+        </div>
+    </div>
+</body>
+</html>

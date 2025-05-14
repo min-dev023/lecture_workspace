@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    #box {
+        background-color: lemonchiffon;
+        width: 200px;
+    }
+    .mystyle {
+        color: red;
+    }
+    p[name] {
+        background: gray;
+        color: white;
+        border : 2px solid black;
+        width: 200px;
+    }
+    
+</style>
+<body>
+    <!-- 아이디는 절대로 중복을 허용하지 않으므로, 문서 내에 오직 한개만 둬야 한다. -->
+    <p id="box">저는 id로 식별합니다.</p>
+    <p class="mystyle">난 클래스로 식별해</p>
+    <p></p>
+    <p></p>
+    <p name="photo">난 이름으로 식별함ㅋ.ㅋ</p>
+    <p name="photo">name 두번째</p>
+</body>
+</html>

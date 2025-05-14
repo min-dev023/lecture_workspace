@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script src="./js/Rect.js"></script>
+<script>
+    let width = 50; // 막대 하나당 너비
+    let height = 400; // 막대 하나당 높이
+    let count = 10; // 생성하고픈 막대 수
+    let colorArray = ["red", "orange", "yellow", "green", "blue", "navy", "purple"];
+
+    // function test(){
+
+    // }
+    let test=()=>{
+        // 화살표 함수 내에서의 this는 상위 스코프 객체를 가리킴
+        console.log("호출됨");
+    }
+
+    // 원하는 수 만큼의 막대를 만들어서, 부모에 부착하되,
+    // 부모의 크기는 결정된 것이 아니라 자식의 크기와 수에 비례하여 결정(동적으로 부여)
+
+    // 자바스크립트 언어는 함수를 일급시민 취급
+    // 컴퓨터 공학에서는 일반 시민이랑 어떤 대상을 일반 데이터처럼 귀츱할 수 있는 것을 말함
+    // 즉 자바스크립트는 함수를 변수에 담거나, 함수를 매개변수 전달하고나 함수를 리턴할 수 있음.
+    let init = function() {
+        let wrapper = document.createElement("div");
+        wrapper.style.width = width * count + "px";
+        wrapper.style.height = height + "px";
+        wrapper.style.margin = "auto";
+        wrapper.style.background = "lightgray";
+        wrapper.style.position = "relative";
+        // wrapper.style.transform = "scaleX(-1)"
+        document.body.appendChild(wrapper);
+
+        for(let i = 0; i < count; i++){
+            // 10개에 대해서 모두 다른 색을 구해야 하므로 , 랜덤은 for 문내에서 작성
+            let bg = colorArray[parseInt(Math.random() * colorArray.length)];
+            new Rect(wrapper, i * width, 0, width, height, bg);
+        }
+    }
+
+    addEventListener("load", function(){
+        init();
+    });
+</script>
+<body>
+    
+</body>
+</html>

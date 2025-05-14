@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    #box {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background-color: hotpink;
+        position: absolute;
+        left: 10px;
+        top: 150px;
+    }
+    button {
+        width: 150px;
+        height: 50px;
+        border-radius: 10%;
+        border: 3px solid hotpink;
+        background-color: rgb(255, 212, 219);
+    }
+</style>
+<script>
+    let iLeft = 1;
+    let flag = true;
+    let autoVal;
+
+    let pix = prompt("끝에 도달할 픽셀 값 입력")
+    console.log("입력한 픽셀 값 : " + pix);
+
+    // 문서 내의 빨간 원의 css 중 포지션 left 값을 증가시킨다.
+    function move() {
+        let box = document.getElementById("box");
+        let nowLeft = box.getBoundingClientRect().left;
+
+        // box.style.left = nowLeft + iLeft + "px";
+        if (nowLeft >= pix || nowLeft <= 0) {
+                flag = !flag;
+        }
+
+        if (flag) {
+            box.style.left = nowLeft + iLeft + "px";
+            console.log("증가" + nowLeft);
+        } else {
+            box.style.left = nowLeft - iLeft + "px";
+            console.log("감소" + nowLeft);
+        }
+    }
+
+    function moveAuto() {
+        // 자동은 기존의 수현 구동 코드를 일정시간 간격으로 호출하면 됨
+        // 따라서 언제나 수동 코드를 완성해놓아야함
+        
+        //setTimeout or setInterval
+        // setInterval() = 일정한 시간 간격(interval)으로 지정된 함수를 반복적으로 실행
+        // clearInterval() = setInterval() 함수가 실행되고 있을 때, clearInterval() 함수를 사용하여 반복을 중지
+        // setTimeout() = 지정된 시간이 경과한 후에 한 번만 특정 함수를 실행
+
+        autoVal = setInterval("move()", 1);
+        console.log("moveAuto");
+    }
+    function moveStop() {
+        clearInterval(autoVal);
+    }
+
+    addEventListener("load", function(){
+        let m = document.querySelector("#manual");
+        let a = document.querySelector("#auto");
+        let s = document.querySelector("#stop");
+        
+        m.addEventListener("click", function(){
+            move();
+        });
+        a.addEventListener("click", function(){
+            moveAuto();
+        });
+        s.addEventListener("click", function(){
+            moveStop();
+        });
+    });
+</script>
+<body>
+    <!-- <input type="button" value="수동" id="manual"></input>
+    <input type="button" value="자동" id="auto"></input> -->
+    <h3>[신세계 4월] - 김민지</h3> 
+    <button id="manual">수동</button>
+    <button id="auto">자동</button>
+    <button id="stop">중지</button>
+
+    <div id="box"></div>
+</body>
+</html>

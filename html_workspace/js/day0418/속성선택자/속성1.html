@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    /* 아래의 두개 링크의 차이점은
+    1. href의 값이 틀림 -> 따라서 선택자가 될 수 있음
+    2. target 속성의 존재여부 -> 따라서 선택자가 될 수 있음
+     */
+
+    a[target] {
+        text-decoration: none;
+    }
+</style>
+<body>
+    <!-- a 태그는 target을 지정하지 않으면 디폴트가 _self -->
+    <a href="http://daum.net" target="_blank">이 링크 누르면 새로운 탭으로 열림</a> <br/><br/>
+    <a href="www.naver.com">이 링크를 누르면 현재 페이지가 전환 됨</a> <br/><br/>
+</body>
+</html>

@@ -1,0 +1,13 @@
+button {
+    border-color: #99627A;
+    background-color: #E7CBCB;
+    width: 490px;
+}
+table {
+    border: solid 2px;
+    border-color: #99627A;
+    text-align: center;
+}
+tr, td {
+    font-size: 9px;
+}
