@@ -55,4 +55,27 @@ function getLastDate(yy, mm) {
 
     return d.getDate();
 }
+/*----------------------------------------------------------*/
+
+/*---------------------------------------------------------- 
+    충돌 체크 함수
+*----------------------------------------------------------*/ 
+function collisionCheck(me, target) {
+    let me_x = parseInt(me.style.left);
+    let me_y = parseInt(me.style.top);
+    let me_width = parseInt(me.style.width);
+    let me_height = parseInt(me.style.height);
+
+    let target_x = parseInt(target.style.left);
+    let target_y = parseInt(target.style.top);
+    let target_width = parseInt(target.style.width);
+    let target_height = parseInt(target.style.height);
+
+    return !(
+        me_x + me_width < target_x ||   // me의 오른쪽이 타겟의 왼쪽보다 왼쪽에 있으면
+        me_x > target_x + target_width ||  // me의 왼쪽이 타겟의 우측보다 오른쪽에 있으면
+        me_y + me_height < target_y ||  // 나의 아래쪽이 타겟보다 위에 있으면
+        me_y > target_y + target_height // 나의 위쪽이 타겟보다 아래에 있으면
+    );
+}
 /*----------------------------------------------------------*/ 
