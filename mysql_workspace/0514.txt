@@ -1,0 +1,624 @@
+SQL> select * from emp;
+
+     EMPNO ENAME                JOB                       MGR HIREDATE        SAL       COMM     DEPTNO                                                                                                 
+---------- -------------------- ------------------ ---------- -------- ---------- ---------- ----------                                                                                                 
+      7369 SMITH                CLERK                    7902 80/12/17        800                    20                                                                                                 
+      7499 ALLEN                SALESMAN                 7698 81/02/20       1600        300         30                                                                                                 
+      7521 WARD                 SALESMAN                 7698 81/02/22       1250        500         30                                                                                                 
+      7566 JONES                MANAGER                  7839 81/04/02       2975                    20                                                                                                 
+      7654 MARTIN               SALESMAN                 7698 81/09/28       1250       1400         30                                                                                                 
+      7698 BLAKE                MANAGER                  7839 81/05/01       2850                    30                                                                                                 
+
+6 rows selected.
+
+SQL> -- sqlplus 명령어 중 한 페이지당 몇 개의 레코드를 수용할 지 결정하는 명령어 (툴명령어)
+SQL> set pagesize 20;
+SQL> select * from emp;
+
+     EMPNO ENAME                JOB                       MGR HIREDATE        SAL       COMM     DEPTNO                                                                                                 
+---------- -------------------- ------------------ ---------- -------- ---------- ---------- ----------                                                                                                 
+      7369 SMITH                CLERK                    7902 80/12/17        800                    20                                                                                                 
+      7499 ALLEN                SALESMAN                 7698 81/02/20       1600        300         30                                                                                                 
+      7521 WARD                 SALESMAN                 7698 81/02/22       1250        500         30                                                                                                 
+      7566 JONES                MANAGER                  7839 81/04/02       2975                    20                                                                                                 
+      7654 MARTIN               SALESMAN                 7698 81/09/28       1250       1400         30                                                                                                 
+      7698 BLAKE                MANAGER                  7839 81/05/01       2850                    30                                                                                                 
+
+6 rows selected.
+
+SQL> -- 테이블의 데이터가 아니라 테이블의 구조를 보는 방법
+SQL> desc dept;
+ Name                                                                                                              Null?    Type
+ ----------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------
+ DEPTNO                                                                                                            NOT NULL NUMBER
+ DNAME                                                                                                                      VARCHAR2(14)
+ LOC                                                                                                                        VARCHAR2(13)
+
+SQL> -- 현재 계정이 보유한 테이블 조회
+SQL> -- 딕셔너리 조회
+SQL> select table_name
+  2  ;
+
+*
+ERROR at line 2:
+ORA-00923: FROM keyword not found where expected 
+
+
+SQL> -- 보유한 시퀀스들을 조회
+SQL> select sequence_name from user_sequences;
+
+SEQUENCE_NAME                                                                                                                                                                                           
+------------------------------------------------------------                                                                                                                                            
+SEQ_ANIMALTYPE                                                                                                                                                                                          
+SEQ_CUS                                                                                                                                                                                                 
+SEQ_OWNER                                                                                                                                                                                               
+SEQ_PET                                                                                                                                                                                                 
+
+SQL> select table_name from user_table;
+select table_name from user_table
+                       *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> select table_name from user_tables;
+
+TABLE_NAME                                                                                                                                                                                              
+------------------------------------------------------------                                                                                                                                            
+DEPT                                                                                                                                                                                                    
+EMP                                                                                                                                                                                                     
+CUSTOMER                                                                                                                                                                                                
+OWNER                                                                                                                                                                                                   
+ANIMALTYPE                                                                                                                                                                                              
+PET                                                                                                                                                                                                     
+
+6 rows selected.
+
+SQL> -- 동물 정보를 입력한다.
+SQL> desc animaltype;
+ Name                                                                                                              Null?    Type
+ ----------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------
+ ANIMAL_TYPE_ID                                                                                                    NOT NULL NUMBER
+ TYPE_NAME                                                                                                                  VARCHAR2(20)
+
+SQL> insert into animaltype(animaltype_id, type_name)
+  2  values (seq_animaltype.nextval, '원숭이');
+insert into animaltype(animaltype_id, type_name)
+                       *
+ERROR at line 1:
+ORA-00904: "ANIMALTYPE_ID": invalid identifier 
+
+
+SQL> insert into animaltype(animal_type_id, type_name)
+  2  values (seq_animaltype.nextval, '원숭이');
+
+1 row created.
+
+SQL> insert into animaltype(animal_type_id, type_name)
+  2  values (seq_animaltype.nextval, '강아지');
+
+1 row created.
+
+SQL> insert into animaltype(animal_type_id, type_name)
+  2  values (seq_animaltype.nextval, '고양이');
+
+1 row created.
+
+SQL> insert into animaltype(animal_type_id, type_name)
+  2  values (seq_animaltype.nextval, 'horse');
+
+1 row created.
+
+SQL> select * from animaltype;
+
+ANIMAL_TYPE_ID TYPE_NAME                                                                                                                                                                                
+-------------- ----------------------------------------                                                                                                                                                 
+             1 원숭이                                                                                                                                                                                   
+             2 강아지                                                                                                                                                                                   
+             3 고양이                                                                                                                                                                                   
+             4 horse                                                                                                                                                                                    
+
+SQL> update set type_name = '말' from animaltype where animal_type_id = 4;
+update set type_name = '말' from animaltype where animal_type_id = 4
+       *
+ERROR at line 1:
+ORA-00903: invalid table name 
+
+
+SQL> -- 보호자 정보 입력
+SQL> desc owner;
+ Name                                                                                                              Null?    Type
+ ----------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------
+ OWNER_ID                                                                                                          NOT NULL NUMBER
+ OWNER_NAME                                                                                                                 VARCHAR2(20)
+ PHONE                                                                                                                      VARCHAR2(40)
+
+SQL> insert into owner(owner_id, owner_name, phone)
+  2  values(seq_owner.nextval, 'Adams', '010-1111-1111');
+
+1 row created.
+
+SQL> update animaltype set type_name = '말' where animal_type_id = 4;
+
+1 row updated.
+
+SQL> select * from animaltype;
+
+ANIMAL_TYPE_ID TYPE_NAME                                                                                                                                                                                
+-------------- ----------------------------------------                                                                                                                                                 
+             1 원숭이                                                                                                                                                                                   
+             2 강아지                                                                                                                                                                                   
+             3 고양이                                                                                                                                                                                   
+             4 말                                                                                                                                                                                       
+
+SQL> insert into owner(owner_id, owner_name, phone)
+  2  values(seq_owner.nextval, 'King', '010-2222-2222');;
+values(seq_owner.nextval, 'King', '010-2222-2222');
+                                                  *
+ERROR at line 2:
+ORA-00911: invalid character 
+
+
+SQL> insert into owner(owner_id, owner_name, phone)
+  2  values(seq_owner.nextval, 'King', '010-2222-2222');
+
+1 row created.
+
+SQL> insert into owner(owner_id, owner_name, phone)
+  2  values(seq_owner.nextval, 'Scott', '010-3333-3333');
+
+1 row created.
+
+SQL> select * from owner;
+
+  OWNER_ID OWNER_NAME                               PHONE                                                                                                                                               
+---------- ---------------------------------------- --------------------------------------------------------------------------------                                                                    
+         1 Adams                                    010-1111-1111                                                                                                                                       
+         2 King                                     010-2222-2222                                                                                                                                       
+         3 Scott                                    010-3333-3333                                                                                                                                       
+
+SQL> commit;
+
+Commit complete.
+
+SQL> select * from animaltype;
+
+ANIMAL_TYPE_ID TYPE_NAME                                                                                                                                                                                
+-------------- ----------------------------------------                                                                                                                                                 
+             1 원숭이                                                                                                                                                                                   
+             2 강아지                                                                                                                                                                                   
+             3 고양이                                                                                                                                                                                   
+             4 말                                                                                                                                                                                       
+
+SQL> desc pet;
+ Name                                                                                                              Null?    Type
+ ----------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------
+ PET_ID                                                                                                            NOT NULL NUMBER
+ PET_NAME                                                                                                                   VARCHAR2(20)
+ AGE                                                                                                                        NUMBER
+ OWNER_ID                                                                                                                   NUMBER
+ ANIMAL_TYPE_ID                                                                                                             NUMBER
+
+SQL> insert into pet(pet_id, pet_name, age, owner_id, animal_type_id)
+  2  values(seq_pet.nextval, '짱아', 3, 1, 3);
+
+1 row created.
+
+SQL> select * from pet;
+
+    PET_ID PET_NAME                                        AGE   OWNER_ID ANIMAL_TYPE_ID                                                                                                                
+---------- ---------------------------------------- ---------- ---------- --------------                                                                                                                
+         1 짱아                                              3          1              3                                                                                                                
+
+SQL> select *
+  2  from pet p, owner o
+  3  where p.owner_id = o.owner_id;
+
+    PET_ID PET_NAME                                        AGE   OWNER_ID ANIMAL_TYPE_ID   OWNER_ID OWNER_NAME                                                                                          
+---------- ---------------------------------------- ---------- ---------- -------------- ---------- ----------------------------------------                                                            
+PHONE                                                                                                                                                                                                   
+--------------------------------------------------------------------------------                                                                                                                        
+         1 짱아                                              3          1              3          1 Adams                                                                                               
+010-1111-1111                                                                                                                                                                                           
+                                                                                                                                                                                                        
+
+SQL> -- 테이블 조회하면 fk값이 뭔지 알 수 없다.
+SQL> -- 따라서 마치 하나의 테이블 처럼 레코드를 가상으로 조회하는 것을 조인이라고 한다.
+SQL> select p.pet_id, p.pet_name, p.owner_id, o.owner_name
+  2  from pet p, owner o
+  3  where p.owner_id = o.owner_id;
+
+    PET_ID PET_NAME                                   OWNER_ID OWNER_NAME                                                                                                                               
+---------- ---------------------------------------- ---------- ----------------------------------------                                                                                                 
+         1 짱아                                              1 Adams                                                                                                                                    
+
+SQL> select d.deptno, sum
+  2  (e.empno)
+  3  from dept d, emp e
+  4  where d.deptno = e.empno
+  5  and count(empno) >= 5
+  6  group by deptno;
+and count(empno) >= 5
+    *
+ERROR at line 5:
+ORA-00934: group function is not allowed here 
+
+
+SQL> select deptno
+  2  from emp
+  3  group by deptno;
+
+    DEPTNO                                                                                                                                                                                              
+----------                                                                                                                                                                                              
+        30                                                                                                                                                                                              
+        20                                                                                                                                                                                              
+
+SQL> select deptno, count(*)
+  2  from emp
+  3  group by deptno;
+
+    DEPTNO   COUNT(*)                                                                                                                                                                                   
+---------- ----------                                                                                                                                                                                   
+        30          4                                                                                                                                                                                   
+        20          2                                                                                                                                                                                   
+
+SQL> select d.deptno, count(*)
+  2  from dept d, emp e
+  3  where d.deptno = e.empno
+  4  group by deptno
+  5  having count(*) >=4;
+group by deptno
+         *
+ERROR at line 4:
+ORA-00918: column ambiguously defined 
+
+
+SQL> select deptno, count(*)
+  2  from emp e, dept d
+  3  where e.deptno = d.deptno
+  4  and e.deptno = (select deptno from emp where ename = 'SMITH')
+  5  group by deptno;
+group by deptno
+         *
+ERROR at line 5:
+ORA-00918: column ambiguously defined 
+
+
+SQL> select e.deptno, count(*)
+  2  from emp e, dept d
+  3  where e.deptno = d.deptno
+  4  and e.deptno = (select deptno from emp where ename = 'SMITH')
+  5  group by d.deptno;
+select e.deptno, count(*)
+       *
+ERROR at line 1:
+ORA-00979: not a GROUP BY expression 
+
+
+SQL> select d.deptno, count(*)
+  2  from emp e, dept d
+  3  where e.deptno = d.deptno
+  4  and e.deptno = (select deptno from emp where ename = 'SMITH')
+  5  group by d.deptno;
+
+    DEPTNO   COUNT(*)                                                                                                                                                                                   
+---------- ----------                                                                                                                                                                                   
+        20          2                                                                                                                                                                                   
+
+SQL> select deptno from emp where ename = 'SMITH'
+  2  ;
+
+    DEPTNO                                                                                                                                                                                              
+----------                                                                                                                                                                                              
+        20                                                                                                                                                                                              
+
+SQL> drop table emp;
+
+Table dropped.
+
+SQL> ccreate table emp(
+SP2-0734: unknown command beginning "ccreate ta..." - rest of line ignored.
+SQL> empno number
+SP2-0734: unknown command beginning "empno numb..." - rest of line ignored.
+SQL> ,ename varchar2(10)
+SP2-0734: unknown command beginning ",ename var..." - rest of line ignored.
+SQL> ,job varchar2(9)
+SP2-0734: unknown command beginning ",job varch..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL> ,mgr number
+SP2-0734: unknown command beginning ",mgr numbe..." - rest of line ignored.
+SQL> ,hiredate date
+SP2-0734: unknown command beginning ",hiredate ..." - rest of line ignored.
+SQL> ,sal number
+SP2-0734: unknown command beginning ",sal numbe..." - rest of line ignored.
+SQL> ,comm number
+SP2-0734: unknown command beginning ",comm numb..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL> ,deptno number
+SP2-0734: unknown command beginning ",deptno nu..." - rest of line ignored.
+SQL> ,primary key(empno)
+SP2-0734: unknown command beginning ",primary k..." - rest of line ignored.
+SQL> );
+SP2-0042: unknown command ")" - rest of line ignored.
+SQL> create table emp(
+  2  empno number
+  3  ,ename varchar2(10)
+  4  ,job varchar2(9)
+  5  ,mgr number
+  6  ,hiredate date
+  7  ,sal number
+  8  ,comm number
+  9  ,deptno number
+ 10  ,primary key(empno)
+ 11  );
+
+Table created.
+
+SQL> 
+SQL> 
+SQL> insert into emp(empno,ename,job,mgr,hiredate,sal,deptno) values(7369,'SMITH','CLERK',7902,'80/12/17',800,20);
+
+1 row created.
+
+SQL> insert into emp(empno,ename,job,mgr,hiredate,sal,comm,deptno) values(7499,'ALLEN','SALESMAN',7698,'81/02/20',1600,300,30);
+
+1 row created.
+
+SQL> insert into emp(empno,ename,job,mgr,hiredate,sal,comm,deptno) values(7521,'WARD','SALESMAN',7698,'81/02/22',1250,500,30);
+
+1 row created.
+
+SQL> insert into emp(empno,ename,job,mgr,hiredate,sal,deptno) values(7566,'JONES','MANAGER',7839,'81/04/02',2975,20);
+
+1 row created.
+
+SQL> insert into emp(empno,ename,job,mgr,hiredate,sal,comm,deptno) values(7654,'MARTIN','SALESMAN',7698,'81/09/28',1250,1400,30);
+
+1 row created.
+
+SQL> insert into emp(empno,ename,job,mgr,hiredate,sal,deptno) values(7698,'BLAKE','MANAGER',7839,'81/05/01',2850,30);
+
+1 row created.
+
+SQL> insert into emp(empno,ename,job,mgr,hiredate,sal,deptno) values(7782,'CLARK','MANAGER',7839,'81/06/09',2450,10);
+
+1 row created.
+
+SQL> insert into emp(empno,ename,job,mgr,hiredate,sal,deptno) values(7788,'SCOTT','ANALYST',7566,'87/04/19',3000,20);
+
+1 row created.
+
+SQL> insert into emp(empno,ename,job,hiredate,sal,deptno) values(7839,'KING','PRESIDENT','81/11/17',5000,10);
+
+1 row created.
+
+SQL> insert into emp(empno,ename,job,mgr,hiredate,sal,comm,deptno) values(7844,'TURNER','SALESMAN',7698,'81/09/08',1500,0,30);
+
+1 row created.
+
+SQL> insert into emp(empno,ename,job,mgr,hiredate,sal,deptno) values(7876,'ADAMS','CLERK',7788,'87/05/23',1100,20);
+
+1 row created.
+
+SQL> insert into emp(empno,ename,job,mgr,hiredate,sal,deptno) values(7900,'JAMES','CLERK',7698,'81/12/03',950,30);
+
+1 row created.
+
+SQL> insert into emp(empno,ename,job,mgr,hiredate,sal,deptno) values(7902,'FORD','ANALYST',7566,'81/12/03',3000,20);
+
+1 row created.
+
+SQL> insert into emp(empno,ename,job,mgr,hiredate,sal,deptno) values(7934,'MILLER','CLERK',7782,'82/01/23',1300,10);
+
+1 row created.
+
+SQL> select * from emp;
+
+     EMPNO ENAME                JOB                       MGR HIREDATE        SAL       COMM     DEPTNO                                                                                                 
+---------- -------------------- ------------------ ---------- -------- ---------- ---------- ----------                                                                                                 
+      7369 SMITH                CLERK                    7902 80/12/17        800                    20                                                                                                 
+      7499 ALLEN                SALESMAN                 7698 81/02/20       1600        300         30                                                                                                 
+      7521 WARD                 SALESMAN                 7698 81/02/22       1250        500         30                                                                                                 
+      7566 JONES                MANAGER                  7839 81/04/02       2975                    20                                                                                                 
+      7654 MARTIN               SALESMAN                 7698 81/09/28       1250       1400         30                                                                                                 
+      7698 BLAKE                MANAGER                  7839 81/05/01       2850                    30                                                                                                 
+      7782 CLARK                MANAGER                  7839 81/06/09       2450                    10                                                                                                 
+      7788 SCOTT                ANALYST                  7566 87/04/19       3000                    20                                                                                                 
+      7839 KING                 PRESIDENT                     81/11/17       5000                    10                                                                                                 
+      7844 TURNER               SALESMAN                 7698 81/09/08       1500          0         30                                                                                                 
+      7876 ADAMS                CLERK                    7788 87/05/23       1100                    20                                                                                                 
+      7900 JAMES                CLERK                    7698 81/12/03        950                    30                                                                                                 
+      7902 FORD                 ANALYST                  7566 81/12/03       3000                    20                                                                                                 
+      7934 MILLER               CLERK                    7782 82/01/23       1300                    10                                                                                                 
+
+14 rows selected.
+
+SQL> select d.deptno, d.dname, d.loc
+  2  from emp e, dept d
+  3  where e.deptno = d.deptno
+  4  and d.deptno = (select deptno;
+and d.deptno = (select deptno
+                *
+ERROR at line 4:
+ORA-00921: unexpected end of SQL command 
+
+
+SQL> select d.deptno, ifnull(count(*), 0)
+  2  from dept d, emp e
+  3  where d.deptno = e.deptno
+  4  group by d.deptno;
+select d.deptno, ifnull(count(*), 0)
+                 *
+ERROR at line 1:
+ORA-00904: "IFNULL": invalid identifier 
+
+
+SQL> select d.deptno, nvl(count(*), 0)
+  2  from dept d, emp e
+  3  where d.deptno = e.deptno
+  4  group by d.deptno;
+
+    DEPTNO NVL(COUNT(*),0)                                                                                                                                                                              
+---------- ---------------                                                                                                                                                                              
+        30               6                                                                                                                                                                              
+        20               5                                                                                                                                                                              
+        10               3                                                                                                                                                                              
+
+SQL> select * from dept;
+
+    DEPTNO DNAME                        LOC                                                                                                                                                             
+---------- ---------------------------- --------------------------                                                                                                                                      
+        10 ACCOUNTING                   NEW YORK                                                                                                                                                        
+        20 RESEARCH                     DALLAS                                                                                                                                                          
+        30 SALES                        CHICAGO                                                                                                                                                         
+        40 OPERATIONS                   BOSTON                                                                                                                                                          
+
+SQL> select d.deptno, count(*)
+  2  from dept d, emp e
+  3  where d.deptno = e.deptno
+  4  group by d.deptno
+  5  having ifnull(deptno, 0);
+having ifnull(deptno, 0)
+                       *
+ERROR at line 5:
+ORA-00920: invalid relational operator 
+
+
+SQL> select e.empno, e.ename, d.deptno, d.dname, d.log, e.hiredate
+  2  from dept d, emp e
+  3  where d.deptno = e.deptno
+  4  and e.hiredate > (select hiredate from emp where ename='FORD');
+select e.empno, e.ename, d.deptno, d.dname, d.log, e.hiredate
+                                            *
+ERROR at line 1:
+ORA-00904: "D"."LOG": invalid identifier 
+
+
+SQL> select e.empno, e.ename, d.deptno, d.dname, d.loc, e.hiredate
+  2  from dept d, emp e
+  3  where d.deptno = e.deptno
+  4  and e.hiredate > (select hiredate from emp where ename='FORD');
+
+     EMPNO ENAME                    DEPTNO DNAME                        LOC                        HIREDATE                                                                                             
+---------- -------------------- ---------- ---------------------------- -------------------------- --------                                                                                             
+      7788 SCOTT                        20 RESEARCH                     DALLAS                     87/04/19                                                                                             
+      7876 ADAMS                        20 RESEARCH                     DALLAS                     87/05/23                                                                                             
+      7934 MILLER                       10 ACCOUNTING                   NEW YORK                   82/01/23                                                                                             
+
+SQL> select e.empno, e.ename, d.deptno, d.dname, d.log, e.hiredate
+  2  from dept d, emp e
+  3  where d.deptno = e.deptno
+  4  and e.hiredate >= (select hiredate from emp where ename='FORD')
+  5  order by e.hiredate;
+select e.empno, e.ename, d.deptno, d.dname, d.log, e.hiredate
+                                            *
+ERROR at line 1:
+ORA-00904: "D"."LOG": invalid identifier 
+
+
+SQL> select e.empno, e.ename, d.deptno, d.dname, d.loc, e.hiredate
+  2  from dept d, emp e
+  3  where d.deptno = e.deptno
+  4  and e.hiredate >= (select hiredate from emp where ename='FORD')
+  5  order by e.hiredate;
+
+     EMPNO ENAME                    DEPTNO DNAME                        LOC                        HIREDATE                                                                                             
+---------- -------------------- ---------- ---------------------------- -------------------------- --------                                                                                             
+      7900 JAMES                        30 SALES                        CHICAGO                    81/12/03                                                                                             
+      7902 FORD                         20 RESEARCH                     DALLAS                     81/12/03                                                                                             
+      7934 MILLER                       10 ACCOUNTING                   NEW YORK                   82/01/23                                                                                             
+      7788 SCOTT                        20 RESEARCH                     DALLAS                     87/04/19                                                                                             
+      7876 ADAMS                        20 RESEARCH                     DALLAS                     87/05/23                                                                                             
+
+SQL> select e.empno, e.ename, d.deptno, d.dname, d.loc, e.hiredate
+  2  from dept d, emp e
+  3  where d.deptno = e.deptno
+  4  and e.hiredate > (select hiredate from emp where ename='FORD')
+  5  order by e.hiredate;
+
+     EMPNO ENAME                    DEPTNO DNAME                        LOC                        HIREDATE                                                                                             
+---------- -------------------- ---------- ---------------------------- -------------------------- --------                                                                                             
+      7934 MILLER                       10 ACCOUNTING                   NEW YORK                   82/01/23                                                                                             
+      7788 SCOTT                        20 RESEARCH                     DALLAS                     87/04/19                                                                                             
+      7876 ADAMS                        20 RESEARCH                     DALLAS                     87/05/23                                                                                             
+
+SQL> -- 4번 문제 풀이 완
+SQL> -- 4) FORD 보다 입사일이 늦은 사원의 사원번호, 사원명, 입사일, 부서번호, 부서명, 부서위치를 출력하되, 입사일이 빠른 순서대로 정렬
+SQL> -- 5번 문제 풀이 시작
+SQL> -- ㄴㄴ 3번 문제 풀이 시작
+SQL> select deptno, count(*)
+  2  from emp
+  3  where ename = 'SMITH'
+  4  group by deptno;
+
+    DEPTNO   COUNT(*)                                                                                                                                                                                   
+---------- ----------                                                                                                                                                                                   
+        20          1                                                                                                                                                                                   
+
+SQL> -- 1번 문제
+SQL> -- 1) 소속된 총 사원수가 5명 이상인 부서의 부서번호, 소속 사원수를 출력.
+SQL> select d.deptno, count(empno)
+  2  from emp e, dept d
+  3  where d.deptno = e.deptno
+  4  group by d.deptno
+  5  having count(empno) >= 5;
+
+    DEPTNO COUNT(EMPNO)                                                                                                                                                                                 
+---------- ------------                                                                                                                                                                                 
+        30            6                                                                                                                                                                                 
+        20            5                                                                                                                                                                                 
+
+SQL> -- 2번 문제
+SQL> -- 2) SMITH가 소속된 부서의 총 사원수 출력
+SQL> select e.deptno, count(*)
+  2  from emp
+  3  where deptno = (select deptno from emp where ename = 'SMITH');
+select e.deptno, count(*)
+       *
+ERROR at line 1:
+ORA-00904: "E"."DEPTNO": invalid identifier 
+
+
+SQL> select deptno, count(*)
+  2  from emp
+  3  where deptno = (select deptno from emp where ename = 'SMITH');
+select deptno, count(*)
+       *
+ERROR at line 1:
+ORA-00937: not a single-group group function 
+
+
+SQL> select count(*)
+  2  from emp
+  3  where deptno = (select deptno from emp where ename = 'SMITH');
+
+  COUNT(*)                                                                                                                                                                                              
+----------                                                                                                                                                                                              
+         5                                                                                                                                                                                              
+
+SQL> -- 3번 문제
+SQL> -- 3) SMITH가 소속된 부서의 총 사원 수보다, 소속 사원 수가 더 많은 부서의 부서번호, 부서명, 부서위치를 출력
+SQL> select count(empno), d.deptno
+  2  from emp e, deptd
+  3  where e.deptno = d.deptno
+  4  group by d.deptno;
+from emp e, deptd
+            *
+ERROR at line 2:
+ORA-00942: table or view does not exist 
+
+
+SQL> select count(empno), d.deptno
+  2  from emp e, dept d
+  3  where e.deptno = d.deptno
+  4  group by d.deptno;
+
+COUNT(EMPNO)     DEPTNO                                                                                                                                                                                 
+------------ ----------                                                                                                                                                                                 
+           6         30                                                                                                                                                                                 
+           5         20                                                                                                                                                                                 
+           3         10                                                                                                                                                                                 
+
+SQL> spool off
