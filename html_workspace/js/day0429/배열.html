@@ -36,7 +36,7 @@
     function rsp() {
         let img = document.querySelector("img");
 
-        let num = getRandom(imgArray.length);
+        let num = getRandom(imgArray.length - 1);
         console.log(num);
 
         img.src = "../images/" + imgArray[num];

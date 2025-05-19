@@ -33,7 +33,7 @@
 </style>
 <script>
     let num = 0;
-    let onOff = 0; 
+    let onOff = 0;
 
     function setReset() {
         console.log("reset");
@@ -45,13 +45,16 @@
     function setStop() {
         console.log("stop");
         document.querySelector("input").value = "";
+        clearInterval();
     }
 
     function setCount() {
 
         document.querySelector("input").value = num++;
         
-        setTimeout("setCount()", 100);
+        if(onOff == 1) {
+            setTimeout("setCount()", 100);
+        }
     }
 
     // 문서가 로드 되면.. 즉 html 끝나는 태그까지 모두 읽으면
@@ -63,12 +66,16 @@
         btn.addEventListener("click", function(){
             this.disabled = true;
             stop.disabled = false;
-            setCount();
+            onOff = 1;
+            if(onOff == 1) {
+                setCount();
+            }
         });
 
         stop.addEventListener("click", function(){
             this.disabled = true;
             btn.disabled = false;
+            onOff = 0;
             setStop();
         });
 
