@@ -44,6 +44,24 @@
         let d = new Date(year, month + 1, 0);
         return d.getDate();
     }
+   /*-------------------------------------------------------------
+    달력과 다이어리 비교하여 렌더링 처리
+    -------------------------------------------------------------*/
+    function checkDate(cell, year, month, date){
+        // 다이어리에 등록된 데이터와 현재 각 날짜와 비교하여, 같은 경우 년/월/일 이 같은 경우는
+        // 다이어리에 등록된 날짜로 간주한다. 제목출력, 아이콘 출력
+        for(let k = 0; k < diaryArray.length; k++){
+            let diary = diaryArray[k]; // 한 건의 다이어리 추출
+            
+            if(diary.year == year && diary.month == month && diary.date == date) {
+                // 제목 나오기
+                cell.titleDiv.innerText = diary.title;
+                // 아이콘 나오기
+                cell.renderIcon(diary.icon, 25);
+            }
+        }
+        
+    }
     /*-------------------------------------------------------------
     해당 년,월의 달력의 숫자 출력
     -------------------------------------------------------------*/
@@ -57,7 +75,9 @@
             for(let j = 0; j < 7; j++) {
                 // index 값이 시작 요일에 도달하게 되면.. 해당 월의 마지막 일까지만.
                 if(index >= getStartDate(currentYear, currentMonth) && date < getLastDate(currentYear, currentMonth)){
-                    cellArray[i][j].setDate(currentYear, currentMonth, ++date);
+                    cellArray[i][j].setDate(currentYear, currentMonth, ++date);// 날짜 찍기
+
+                    checkDate(cellArray[i][j], currentYear, currentMonth, date);
                 }
                 index++;
             }
@@ -94,7 +114,12 @@
                 // 1) div에 출력된 모든 텍스트 지우기
                 cellArray[i][j].numDiv.innerText = "";
                 cellArray[i][j].titleDiv.innerText = "";
+
                 // 2) 등록된 아이콘 지우기 (remove)
+                if(cellArray[i][j].iconDiv.children.length > 0){
+                    cellArray[i][j].iconDiv.removeChild(cellArray[i][j].icon);
+
+                }
             }
         }
     }
@@ -205,12 +230,41 @@
                 closeDialog();
             }
         });
+        // 이미지를 클릭하면 파일탐색기를 강제 클릭시키기
+        document.querySelector("#info img").addEventListener("click", ()=>{
+            document.getElementById("fileChooser").click(); // 프로그래밍적 강제 클릭
+            // 유저가 파일 탐색기에서 파일을 선택한 순간에 파일 읽기.
+            document.getElementById("fileChooser").addEventListener("change", (e)=>{
+                console.log(e);
+                let file = e.target.files[0]; // e.target.files 라는 유사배열의 0번째 파일
+
+                // 파일 읽어들이는 객체 사용
+                let reader = new FileReader();
+                reader.onload = function(data){
+                    // 읽어들인 데이터는 단지 js 객체 표기를 차용한 것 뿐이므로,
+                    // 단순한 문자열에 불과하다. 따라서 객체처럼 .찍고 접근 불가
+                    // 해결책) 실제 객체화 시켜야 한다(JSON 내장 객체 이용)
+                    let obj = JSON.parse(data.target.result); // 해석 후 객체 반환
+
+                    diaryArray = obj.diaryList;
+
+                    printTitle();
+                    clearCell();
+                    printNum();
+                };
+                reader.readAsText(file);
+            });
+            
+        });
     });
 </script>
 
 <body>
     <div id="wrapper">
-        <div id="info"></div>
+        <div id="info">
+            <input type = "file" style="display:none;" id="fileChooser">
+            <img src="./img/file.png" alt="파일첨부" style="width: 50px;">
+        </div>
         <div id="header">
             <a href="javascript:prev()">◀ 이전</a>
             <h2></h2>

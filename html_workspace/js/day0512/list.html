@@ -8,7 +8,7 @@
 <script>
 
 
-    /* 
+    
     let storeList = [];
 
     store1 = {
@@ -46,7 +46,7 @@
     storeList.push(store3);
     storeList.push(store4);
     storeList.push(store5);
-    */
+    
     
 
     // 등록 시 누적된 맛집들의 리스트를 테이블로 동적 출력
@@ -60,11 +60,11 @@
         tag += "<td>대표사진</td>";
         tag += "</tr>";
 
-        let n = window.opener.storeList.length;
+        let n = storeList.length;
         console.log(n);
 
-        for(let i = 0; i < window.opener.storeList.length; i++) {
-            let store = window.opener.storeList[i];
+        for(let i = 0; i < storeList.length; i++) {
+            let store = storeList[i];
             tag += "<tr>";
             tag += `<td>${i+1}</td>`;
             tag += "<td>"+ store.store_name + "</td>";
