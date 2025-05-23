@@ -3,6 +3,7 @@ package com.sinse.ioproject.db;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.PreparedStatement;
 
 public class OracleTest {
 
@@ -23,6 +24,12 @@ public class OracleTest {
 				
 				if(con != null ) {
 					System.out.println("접속 성공");
+					
+					// 접속이 성공된 이후, 원격지의 db 서버의 SQL 문을 네트워크를 통해 전송
+					String sql = "insert into member3(uid, pwd, email) values('scott', '3333', 'sss@daum.net')"; 
+					// Java Database Connectivity= 자바의 데이터베이스 연동 기술 및 지우너 패키지(java.sql 패키지에서..)
+					// JDBC 쿼리문 수행을 담당하는 인터페이스는 PreparedStatement
+					PreparedStatement pstmt;
 				}else {
 					System.out.println("접속 실패");
 				}
