@@ -1,0 +1,27 @@
+/* SHOP - 서브메뉴 */
+.sub-menu {
+    position: fixed;
+    width: 200px;
+    height: 100%;
+    transition: 0.5s;
+}
+.sub-menu ul {
+    list-style: none;
+    padding: 0;
+
+}
+.sub-menu{
+    width: 0;
+    height: 100%;
+    overflow: hidden;
+    background: rgb(255, 241, 204);
+    transition-duration: 0.5s;
+}
+.side-nav-left:hover > .sub-menu{
+    height: 100%;
+    width: 300px;
+    overflow: hidden
+}
+.sub-menu-list li {
+    line-height: 3rem;
+}

@@ -1,0 +1,71 @@
+body {
+    font-family: 'Arial', sans-serif;
+    /* padding: 20px;
+    background: #f8f9fa; */
+    max-width: 700px;
+    margin: 40px auto;
+    padding: 20px;
+    background: #fffcf0;
+    color: #333;
+}
+h1 {
+    text-align: center;
+    margin-left: 90px;
+}
+h1, nav{
+    display: inline-block;
+}
+h1, h2 {
+    color: #333;
+}
+.top-menu {
+    font-size: 25px;
+    text-decoration: none;
+}
+
+textarea, select, input, button {
+    margin: 5px 0;
+    padding: 8px;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 15px;
+}
+
+textarea, input {
+    width: 97%;
+}
+
+button {
+    cursor: pointer;
+    background-color: #6c757d;
+    color: white;
+    border: none;
+}
+
+#btn_clear {
+    background-color: #eb7d7d;
+}
+
+.section {
+    margin-bottom: 30px;
+    padding: 15px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+#emotion-stats .emotion-bar {
+    margin: 5px 0;
+    padding: 5px;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+}
+
+.joy { background: #ffd3e2; color: #8e3e63; }
+.sadness { background: #d0e8ff; color: #3e5f8e; }
+.anger { background: #ffdddd; color: #8e3e3e; }
+.anxiety { background: #e3ddff; color: #4e3e8e; }
+.calm { background: #d6f5e3; color: #3e8e5f; }
+.neutral { background: #f0f0f0; color: #666; }
