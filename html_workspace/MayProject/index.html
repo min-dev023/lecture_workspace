@@ -8,40 +8,27 @@
   <link rel="stylesheet" href="sidebar.css" />
 </head>
 <body>
-    <div id="content">
-        <nav class = "side-nav">
-            <div class = side-nav-left> 
-                <a href="#" class="top-menu">🟰</a>
-                <!-- SHOP - 서브메뉴 생성 -->        
-                <div class = "sub-menu">
-                    <ul class = "sub-menu-list">
-                        <li>
-                            <a href="1.html"><span class = "title">New</span></a>
-                        </li>
-                       <li>
-                           <a href="#"><span class = "title">Basic</span></a>
-                        </li>
-                        <li>
-                            <a href="#"><span class = "title">Best Item</span></a>
-                        </li>
-                        <li>
-                            <a href="#"><span class = "title">SALE</span></a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
+    <div id="header">
+        <div id="sidebar-container"></div>
+
+
         <h1>🌈 감정 다이어리 & 🎯 다짐 캡슐</h1>
+    </div>
+    <div id="content">
         <div class="section">
             <h2>📔 오늘의 감정 일기</h2>
             <select id="emotion-select">
-                <option>기쁨</option>
-                <option>슬픔</option>
-                <option>분노</option>
-                <option>불안</option>
-                <option>평온</option>
-                <option>무감정</option>
+                <option value="joy">기쁨</option>
+                <option value="sadness">슬픔</option>
+                <option value="anger">분노</option>
+                <option value="anxiety">불안</option>
+                <option value="calm">평온</option>
+                <option value="neutral">무감정</option>
             </select>
+            <label for="intensity">감정 강도 (1~5)</label>
+            <!-- <input type="range" id="intensity" min="1" max="5" value="3" /> -->
+            <input id="rangeInput" class="rangeInput" style="" max="5" min="1" step="1" type="range" />
+            <span id="intensity-value"></span>
             <textarea id="diary-entry" rows="4" placeholder="오늘 있었던 일을 적어보세요."></textarea>
             <button onclick="saveDiary()">일기 저장</button>
         </div>
@@ -73,30 +60,6 @@
         </div>
     </div>
 
-
-    <!-- index.html 내부, body에 삽입 -->
-
-    <!-- FullCalendar CDN 추가 -->
-    <!-- <link href='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/main.min.css' rel='stylesheet' />
-    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/main.min.js'></script> -->
-
-    <!-- 날짜별 다짐 캘린더 -->
-    <!-- <div class="section">
-    <h2>📆 날짜별 다짐 캘린더</h2>
-    <div id="goal-calendar"></div>
-    </div> -->
-
-    <!-- 모달 -->
-    <!-- <div id="goal-modal" style="display:none; position:fixed; top:30%; left:50%; transform:translateX(-50%);
-    background:white; padding:20px; border-radius:10px; box-shadow:0 5px 15px rgba(0,0,0,0.3); z-index:1000;">
-    <h3 id="modal-date"></h3>
-    <p id="modal-content"></p>
-    <button onclick="closeModal()">닫기</button>
-    </div>
-    <div id="modal-overlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%;
-    background:rgba(0,0,0,0.5); z-index:999;" onclick="closeModal()"></div> -->
-
-
-    <script src="main.js"></script>
+    <script type="module" src="main.js"></script>
 </body>
 </html>

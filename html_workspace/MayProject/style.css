@@ -10,17 +10,11 @@ body {
 }
 h1 {
     text-align: center;
-    margin-left: 90px;
+    margin-left: 60px;
 }
-h1, nav{
-    display: inline-block;
-}
+
 h1, h2 {
     color: #333;
-}
-.top-menu {
-    font-size: 25px;
-    text-decoration: none;
 }
 
 textarea, select, input, button {
@@ -55,11 +49,22 @@ button {
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
+.rangeInput{
+  width: 97%;
+  background: linear-gradient(to right, #FFE283 0%, #FFE283 50%, #ececec 50%, #ececec 100%);
+  border-radius: 8px;
+  outline: none;
+  /* transition: background 450ms ease-in; */
+  -webkit-appearance: none;
+  accent-color: #ffca1d;
+}
+
 #emotion-stats .emotion-bar {
     margin: 5px 0;
     padding: 5px;
     border-radius: 5px;
     color: white;
+    text-shadow: -1px 0px gray, 0px 1px gray, 1px 0px gray, 0px -1px gray;
     font-weight: bold;
 }
 

@@ -1,13 +1,60 @@
+// sidebar.html에서 div만 가져와서 삽입
+fetch('sidebar.html')
+  .then(response => response.text())
+  .then(data => {
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(data, 'text/html');
+    const sidebarDiv = doc.querySelector('.side-nav');
+
+    if (sidebarDiv) {
+      document.getElementById('sidebar-container').appendChild(sidebarDiv);
+    } else {
+      console.error('sidebar div not found in sidebar.html');
+    }
+  })
+  .catch(error => console.error('Error loading sidebar:', error));
+
+
+
+  
+
 // 감정별 색상 클래스 매핑
 const emotionClassMap = {
-  '기쁨': 'joy',
-  '슬픔': 'sadness',
-  '분노': 'anger',
-  '불안': 'anxiety',
-  '평온': 'calm',
-  '무감정': 'neutral'
+  'joy': 'joy',
+  'sadness': 'sadness',
+  'anger': 'anger',
+  'anxiety': 'anxiety',
+  'calm': 'calm',
+  'neutral': 'neutral'
 };
 
+// 영문 표시된 감정을 한글+이모지 변환
+let emojiText;
+let emoRange;
+function printEmoji(emotion) {
+  switch (emotion){
+      case "joy":
+        emojiText = "기쁨😊";
+        break;
+      case "sadness":
+        emojiText = "슬픔😢";
+        break;
+      case "anger":
+        emojiText = "분노😡";
+        break;
+      case "anxiety":
+        emojiText = "불안😵";
+        break;
+      case "calm":
+        emojiText = "평온😌";
+        break;
+      case "neutral":
+        emojiText = "무감정😶";
+        break;
+    }
+}
+
+// 데이터 삭제
 function deleteDiary() {
   if(confirm("정말 데이터를 전부 삭제하시나요?")) {
     localStorage.clear();
@@ -18,18 +65,22 @@ function deleteDiary() {
 
 // 데이터 저장
 function saveDiary() {
+  // 감정 선택
   const emotion = document.getElementById('emotion-select').value.trim();
-  const content = document.getElementById('diary-entry').value.trim();
-  // const date = new Date().toISOString().slice(0, 10);
-  const now = new Date();
+  // 감정 레벨
+  const emoLevel = document.getElementById('rangeInput');
+  const emoLevelNum = Number(emoLevel.value);
+  console.log(emoLevelNum);
 
+  // 일기 내용
+  const content = document.getElementById('diary-entry').value.trim();
+  // 날짜
+  const now = new Date();
   const year = now.getFullYear();
   const month = ('0' + (now.getMonth() + 1)).slice(-2);
   const day = ('0' + now.getDate()).slice(-2);
 
   const date = year + '-' + month  + '-' + day;
-
-  console.log(date);
 
   if (!content) {
     alert("일기 내용을 입력해주세요.");
@@ -37,9 +88,10 @@ function saveDiary() {
   }
 
   const diaryData = JSON.parse(localStorage.getItem('diaryData') || '[]');
-  diaryData.push({ date, emotion, content });
+  diaryData.push({ date, emotion, content, emoLevelNum });
   localStorage.setItem('diaryData', JSON.stringify(diaryData));
 
+  // emoRange = null;
   document.getElementById('diary-entry').value = "";
   updateDiaryList();
   updateEmotionStats();
@@ -51,9 +103,11 @@ function updateDiaryList() {
   const diaryData = JSON.parse(localStorage.getItem('diaryData') || '[]');
   diaryList.innerHTML = "";
 
+  
   diaryData.slice().reverse().forEach(entry => {
     const li = document.createElement('li');
-    li.textContent = `[${entry.date}] (${entry.emotion}) ${entry.content}`;
+    printEmoji(entry.emotion);
+    li.textContent = `[${entry.date}] (${emojiText}, lv ${entry.emoLevelNum}) ${entry.content}`;
     diaryList.appendChild(li);
   });
 }
@@ -73,9 +127,31 @@ function updateEmotionStats() {
   for (const [emotion, count] of Object.entries(counts)) {
     const emotionClass = emotionClassMap[emotion] || 'neutral';
     const bar = document.createElement('div');
+
+    switch (emotion){
+      case "joy":
+        emojiText = "기쁨😊";
+        break;
+      case "sadness":
+        emojiText = "슬픔😢";
+        break;
+      case "anger":
+        emojiText = "분노😡";
+        break;
+      case "anxiety":
+        emojiText = "불안😵";
+        break;
+      case "calm":
+        emojiText = "평온😌";
+        break;
+      case "neutral":
+        emojiText = "무감정😶";
+        break;
+    }
     bar.className = `emotion-bar ${emotionClass}`;
-    bar.textContent = `${emotion} (${count})`;
-    bar.style.width = `${count * 20}px`;
+    bar.textContent = `${emojiText} x${count}`;
+    bar.style.width = `${70 + count * 20}px`;
+    bar.style.borderLeft = 20 +"px";
     statsContainer.appendChild(bar);
   }
 }
@@ -113,71 +189,21 @@ function updateGoalList() {
   });
 }
 
-    // // 모달 열기/닫기
-    // function showModal(date, content) {
-    //   document.getElementById('modal-date').textContent = date;
-    //   document.getElementById('modal-content').textContent = content;
-    //   document.getElementById('goal-modal').style.display = 'block';
-    //   document.getElementById('modal-overlay').style.display = 'block';
-    // }
+function navShowCal() {
+  document.getElementById("content").style.display = "none";
 
-    // function closeModal() {
-    //   document.getElementById('goal-modal').style.display = 'none';
-    //   document.getElementById('modal-overlay').style.display = 'none';
-    // }
+  console.log("New");
+}
 
-    // // 캘린더 렌더링
-    // function renderCalendar() {
-    //   const goalData = JSON.parse(localStorage.getItem('goalData') || '{}');
-    //   const events = Object.entries(goalData).map(([date, title]) => ({
-    //     title: '다짐 있음',
-    //     start: date,
-    //     allDay: true,
-    //     extendedProps: { detail: title }
-    //   }));
-
-    //   const calendarEl = document.getElementById('goal-calendar');
-    //   const calendar = new FullCalendar.Calendar(calendarEl, {
-    //     initialView: 'dayGridMonth',
-    //     locale: 'ko',
-    //     height: 500,
-    //     events,
-    //     eventClick: function(info) {
-    //       const date = info.event.startStr;
-    //       const content = info.event.extendedProps.detail;
-    //       showModal(date, content);
-    //     }
-    //   });
-    //   calendar.render();
-    // }
-
-    // // 기존 addGoal에 캘린더 갱신 추가
-    // function addGoal() {
-    //   const date = document.getElementById('goal-date').value;
-    //   const text = document.getElementById('goal-text').value.trim();
-
-    //   if (!date || !text) {
-    //     alert("날짜와 다짐을 모두 입력해주세요.");
-    //     return;
-    //   }
-
-    //   const goalData = JSON.parse(localStorage.getItem('goalData') || '{}');
-    //   goalData[date] = text;
-    //   localStorage.setItem('goalData', JSON.stringify(goalData));
-
-    //   document.getElementById('goal-date').value = "";
-    //   document.getElementById('goal-text').value = "";
-    //   updateGoalList();
-    //   renderCalendar(); // 캘린더도 다시 렌더링
-    // }
-
-    // // 초기 렌더링
-    // updateDiaryList();
-    // updateEmotionStats();
-    // updateGoalList();
-    // renderCalendar();
-
-// 초기 로딩 시
-updateDiaryList();
-updateEmotionStats();
-updateGoalList();
+    
+addEventListener("load", ()=>{
+  document.querySelector('.rangeInput').addEventListener('input',function(event){
+    var gradient_value = 100 / event.target.attributes.max.value;
+    event.target.style.background = 'linear-gradient(to right, #FFE283 0%, #FFE283 '+gradient_value * (event.target.value - 1) +'%, rgb(236, 236, 236) ' +gradient_value *  event.target.value + '%, rgb(236, 236, 236) 100%)';
+  });
+  // 초기 로딩 시
+  updateDiaryList();
+  updateEmotionStats();
+  updateGoalList();
+  
+});
