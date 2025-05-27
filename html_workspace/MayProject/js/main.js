@@ -77,7 +77,8 @@ function deleteDiary() {
         localStorage.clear();
     }
     updateDiaryList();
-    updateEmotionStats()
+    updateEmotionStats();
+    updateGoalList();
 }
 
 // 데이터 저장
@@ -167,7 +168,7 @@ function updateEmotionStats() {
         }
         bar.className = `emotion-bar ${emotionClass}`;
         bar.textContent = `${emojiText} x${count}`;
-        bar.style.width = `${70 + count * 20}px`;
+        bar.style.width = `${70 + count * 50}px`;
         bar.style.borderLeft = 20 +"px";
         statsContainer.appendChild(bar);
     }

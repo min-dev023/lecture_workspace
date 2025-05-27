@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="./css/sidebar.css" />
 </head>
 
-<script> // JSON 문서 가져올 수 있는지 테스트
+<!-- <script> // JSON 문서 가져올 수 있는지 테스트
   const diaryData = JSON.parse(localStorage.getItem('diaryData') || '[]');
 
   diaryData.slice().reverse().forEach(entry => {
@@ -17,13 +17,14 @@
     let textContent = `[${entry.date}] (${entry.emotion}, lv ${entry.emoLevelNum}) ${entry.content}`;
     console.log(textContent);
   });
-</script>
+</script> -->
 <body>
     <!-- 사이드바 -->
     <div id="sidebar-container"></div>
 
     <div id="header">
         <h1>📆 Calendar 📅</h1>
+        <h3 style="color: red;">다짐 있는 날 표시 하기, 게임 만들기, 다짐 표시 스타일 지정</h3>
     </div>
 
     <div class="wrapper">

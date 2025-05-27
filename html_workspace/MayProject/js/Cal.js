@@ -69,31 +69,40 @@ let months = [
 //----------------------------------------------------------------------------
 
 // 날짜 별 상세 내용 표시
-function showDetail() {
-    console.log("상세 내용 클릭됨");
+function showDetail(deYear, deMonth, deDay) {
+    console.log("상세" + deYear + "년" + (deMonth+1) + "월" + deDay +"일");
 
+    const goalData = JSON.parse(localStorage.getItem('goalData') || '{}');
 
+    // 월과 일이 1자리인 경우 0을 붙여서 두 자리로 만듦
+    const monthStr = String(deMonth+1).padStart(2, '0');
+    const dayStr = String(deDay).padStart(2, '0');
+
+    // yyyy-mm-dd 형식으로 조합
+    const key = `${deYear}-${monthStr}-${dayStr}`;
+
+    // 콘솔에 출력
+    console.log(goalData[key]);
+
+    // 또는 화면에 표시
     const emotionLogList = document.getElementById('session');
-    const diaryData = JSON.parse(localStorage.getItem('diaryData') || '[]');
 
-    if (diaryData.length === 0) {
-        emotionLogList.innerHTML = '<p>기록된 감정 일기가 없습니다.</p>';
-        return;
-    }
+    const entryDiv = document.createElement('div');
+    entryDiv.classList.add('emotion-log-entry');
 
-    // 최신순으로 정렬 후 출력
-    diaryData.slice().reverse().forEach(entry => {
-        const entryDiv = document.createElement('div');
-        entryDiv.classList.add('emotion-log-entry');
-
+    emotionLogList.textContent = "";
+    if (goalData[key]) {
         entryDiv.innerHTML = `
-        <strong>📅 날짜:</strong> ${entry.date}<br>
-        <strong>감정:</strong> ${entry.emotion} ${entry.emoLevel} (Lv. ${entry.emoLevelNum})<br>
-        <strong>내용:</strong> ${entry.content}
+        <strong>📅 날짜 : </strong> ${deYear}년 ${deMonth+1}월 ${dayStr}일 <br>
+        <strong>📝다짐 : </strong> ${goalData[key]} <br>
         `;
-
-        emotionLogList.appendChild(entryDiv);
-    });
+    } else {
+        entryDiv.innerHTML = `
+        <strong>📅 날짜 : </strong> ${deYear}년 ${deMonth+1}월 ${dayStr}일 <br>
+        <strong>❌ 등록된 다짐이 없습니다.</strong> <br>
+        `;
+    }
+    emotionLogList.appendChild(entryDiv);
 }
 
 //----------------------------------------------------------------------------
@@ -118,6 +127,7 @@ function renderCalendar() {
     lastDateofLastMonth = new Date(currYear, currMonth, 0).getDate(); // 이전 달의 마지막 날짜
 
     liTag = '';
+
     // 이전 달 '일' 표시
     for (let i = firstDayofMonth; i > 0; i--) {
         liTag += `<li class = "inactivePrev">${lastDateofLastMonth - i + 1}</li>`;
@@ -143,17 +153,18 @@ function renderCalendar() {
     daysTag.innerHTML = liTag;
 
 
-    // 날짜 별 상세 내용 표시
+    // 날짜 별 해당 일의 "다짐" 상세 내용 표시
     let li = document.querySelectorAll('li[name="evtDay"]');
 
     li.forEach(li => {
         li.addEventListener('click', function () {
-            console.log(`클릭한 날짜: ${li.textContent}`);
             let day = li.textContent;
-            showDetail(day);
+            console.log(currYear + "년" + currMonth + "월" + day +"일");
+            showDetail(currYear, currMonth, day);
         });
     });
 
+    // 이전 달의 <li> 클릭 시 이전 달로 이동
     let liPrev = document.querySelectorAll('li[class="inactivePrev"]');
 
     liPrev.forEach(li => {
@@ -164,6 +175,7 @@ function renderCalendar() {
         });
     });
 
+    // 다음 달의 <li> 클릭 시 다음 달로 이동
     let liNext= document.querySelectorAll('li[class="inactiveNext"]');
 
     liNext.forEach(li => {
