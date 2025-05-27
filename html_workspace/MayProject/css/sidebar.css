@@ -1,39 +1,10 @@
-/* OLD STYLE */
-/* .sub-menu {
-    position: fixed;
-    width: 200px;
-    height: 200px;
-    transition: 0.5s;
-}
-.sub-menu ul {
-    list-style: none;
-    padding: 0;
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+  
+body {
 
+    color: #333;
+    font-family: 'Poppins', sans-serif;
 }
-.sub-menu{
-    width: 0;
-    height: 200px;
-    overflow: hidden;
-    background: rgb(255, 241, 204);
-    transition-duration: 0.5s;
-    border-radius: 0px 20px 20px 0px;
-}
-.side-nav-left:hover > .sub-menu{
-    height: 200px;
-    width: 300px;
-    overflow: hidden
-}
-.sub-menu-list li {
-    line-height: 3rem;
-}
-.sub-menu-list a {
-    font-family: 'Arial', sans-serif;
-    text-decoration: none;
-    color: black;
-    margin-left: 20px;
-} */
-
-/* NEW STYLE */
 
 #side-nav {
     overflow: hidden;
@@ -109,16 +80,16 @@ nav .side-nav-left {
     position: absolute;
     top: 120px;
     left: 30%;
-    width: auto;
+    width: 1000px;
     height: auto;
-    background-color: #e6d7bb;
+    background-color: #ffe388;
     border-radius: 15px;
     box-shadow: 2px 4px 12px rgba(116, 116, 116, 0.7);
     padding: 20px 10px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    transform: translateX(-300%);
+    transform: translateX(-100%);
     opacity: 0;
     transition: all 600ms ease;
     z-index: 10;
@@ -142,6 +113,10 @@ nav .side-nav-left .link {
 
 nav .side-nav-left .link:hover {
     color: rgba(0, 0, 0, .5);
+}
+
+.sub-menu-list li {
+    margin-left: 750px;
 }
 
 a{

@@ -1,7 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
 body {
-    font-family: 'Arial', sans-serif;
-    /* padding: 20px;
-    background: #f8f9fa; */
+    font-family: 'Poppins', sans-serif;
+    min-height: 100vh;
     max-width: 700px;
     margin: 40px auto;
     padding: 20px;
@@ -10,7 +11,7 @@ body {
 }
 h1 {
     text-align: center;
-    /* margin-left: 30px; */
+    font-size: 30px;
 }
 
 h1, h2 {
@@ -42,6 +43,7 @@ button {
 }
 
 .section {
+    width: 100%;
     margin-bottom: 30px;
     padding: 15px;
     background: white;

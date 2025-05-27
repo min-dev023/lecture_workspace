@@ -1,217 +1,58 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <title>감정 일기</title>
-  <link rel="stylesheet" href="sidebar.css" />
+    <meta charset="UTF-8" />
+    <title>감정 일기</title>
+    <link rel="stylesheet" href="./css/cal.css" />
+    <link rel="stylesheet" href="./css/sidebar.css" />
 </head>
-<style>
-   /*#1 */
-  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
-  
-  /*#2 */
-    
-  body {
-    min-height: 100vh;
-    max-width: 700px;
-    margin: auto;
-    padding: 20px;
-    background: #fffcf0;
-    color: #333;
-    box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
-  }
-  
-  /* 
-  body {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-    background: #fffcf0;
-    position: relative;
-  }
 
-  #header {
-    flex-direction: row;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    flex: 1;
-  } */
-  
-
-  .wrapper {
-    /* position: absolute; */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-
-    width: 100%;
-    background: #fff;
-    border: 1px solid lightgray;
-    border-radius: 30px;
-    padding: 25px;
-  }
-  
-  
-  h1 {
-    margin-bottom: 15px;
-    text-align: center;
-  }
-  
-  /*#5 */
-  #prevMonth, #nextMonth{
-    /* button 요소에 기본적으로 설정되는 스타일 속성 초기화 */
-    border: none;
-    outline: none;
-    background-color: transparent;
-    padding: 0;
-    cursor: pointer;
-  }
-  /*#6*/
-  .wrapper .nav {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 30px;
-  }
-  .wrapper .nav .current-date {
-    font-size: 24px;
-    font-weight: 600;
-  }
-  .wrapper .nav button {
-    width: 38px;
-    height: 38px;
-    font-size: 10px;
-    color: #878787;
-  }
-    /*#7*/
-  .calendar ul {
-    display: flex;
-    list-style: none;
-    flex-wrap: wrap;
-    text-align: center;
-    padding-right: 20px;
-  }
-  .calendar .weeks li {
-    font-weight: 500;
-  }
-  .calendar .days {
-    margin-bottom: 20px;
-  }
-  .calendar ul li {
-    /*#8*/
-    width: calc(100% / 7);
-    /*#9*/
-    position: relative;
-  }
-  .calendar .days li {
-    /*#10*/
-    z-index: 0;
-    margin-top: 30px;
-    cursor: pointer;
-  }
-  
-  /*#11*/
-  .days li.inactive {
-    color: #aaa;
-  }
-  .days li.active {
-    color: #fff;
-  }
-  .calendar .days li::before {
-    position: absolute;
-    content: '';
-    height: 40px;
-    width: 40px;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    border-radius: 50%;
-    z-index: -1;
-  }
-  .days li:hover::before {
-    background: #f2f2f2;
-  }
-  .days li.active::before {
-    background: #008aff;
-  }
-</style>
 <script> // JSON 문서 가져올 수 있는지 테스트
   const diaryData = JSON.parse(localStorage.getItem('diaryData') || '[]');
 
   diaryData.slice().reverse().forEach(entry => {
     const li = document.createElement('li');
     // printEmoji(entry.emotion);
-    let textContent = `[${entry.date}] (${1}, lv ${entry.emoLevelNum}) ${entry.content}`;
+    //date, emotion, content, emoLevelNum
+    let textContent = `[${entry.date}] (${entry.emotion}, lv ${entry.emoLevelNum}) ${entry.content}`;
     console.log(textContent);
   });
 </script>
 <body>
-  
-  <div id="header">
-    <div id="sidebar-container" style="position: relative; z-index: 1;"></div>
-    <h1>📆Calendar📅</h1>
-  </div>
-  <div class="wrapper">
-    <div class="nav">
-        <button id="prevMonth"> ◀ </button>
-        <p class="current-date">September 2025</p>
-        <button id="nextMonth"> ▶ </span>
+    <!-- 사이드바 -->
+    <div id="sidebar-container"></div>
+
+    <div id="header">
+        <h1>📆 Calendar 📅</h1>
     </div>
-    <div class="calendar">
-        <ul class="weeks">
-          <li>Sun</li>
-          <li>Mon</li>
-          <li>Tue</li>
-          <li>Wed</li>
-          <li>Thu</li>
-          <li>Fri</li>
-          <li>Sat</li>
-        </ul>
-        <ul class="days">
-          <li class="inactive">27</li>
-          <li class="inactive">28</li>
-          <li class="inactive">29</li>
-          <li class="inactive">30</li>
-          <li>1</li>
-          <li>2</li>
-          <li>3</li>
-          <li>4</li>
-          <li>5</li>
-          <li>6</li>
-          <li>7</li>
-          <li>8</li>
-          <li>9</li>
-          <li>10</li>
-          <li>11</li>
-          <li>12</li>
-          <li>13</li>
-          <li>14</li>
-          <li>15</li>
-          <li>16</li>
-          <li>17</li>
-          <li>18</li>
-          <li>19</li>
-          <li>20</li>
-          <li>21</li>
-          <li>22</li>
-          <li>23</li>
-          <li>24</li>
-          <li>25</li>
-          <li>26</li>
-          <li>27</li>
-          <li>28</li>
-          <li>29</li>
-          <li>30</li>
-          <li>31</li>
-        </ul>
-      </div>
+
+    <div class="wrapper">
+        <div class="nav">
+            <button class="material-icons" id="prevMonth"> ◀ </button>
+            <p class="current-date"></p>
+            <button class="material-icons" id="nextMonth"> ▶ </span>
+        </div>
+        <div class="calendar">
+            <ul class="weeks">
+                <li>Sun</li>
+                <li>Mon</li>
+                <li>Tue</li>
+                <li>Wed</li>
+                <li>Thu</li>
+                <li>Fri</li>
+                <li>Sat</li>
+            </ul>
+            <ul class="days">
+            </ul>
+        </div>
+        <div class="now">
+            <button id="btnNow" title="오늘로 이동">🧡</button>
+        </div>
     </div>
-      
-  <script type="module" src="Cal.js"></script>
+
+    <div id="session">
+    </div>
+
+<script type="module" src="./js/Cal.js"></script>
 </body>
 </html>
