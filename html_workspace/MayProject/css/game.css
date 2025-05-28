@@ -289,3 +289,194 @@ button:focus {
         visibility: hidden;
     }
 }
+
+/*-------------------------------------------------------------
+    메인화면 - 
+-------------------------------------------------------------*/
+#character-display {
+  text-align: center;
+  margin-bottom: 8px;
+}
+#character-img {
+  width: 60px;
+  height: 60px;
+}
+#stats-panel {
+  font-size: 12px;
+  background: #f4f4f4;
+  border-radius: 8px;
+  padding: 6px;
+  margin-bottom: 8px;
+}
+#game-menu {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 6px;
+}
+#game-menu button {
+  font-size: 12px;
+  padding: 4px;
+  border-radius: 6px;
+  border: none;
+  background-color: #fefefe;
+  box-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+  cursor: pointer;
+}
+#game-menu button:hover {
+  background-color: #dbeafe;
+}
+
+/*-------------------------------------------------------------
+    Button 오늘한 일
+-------------------------------------------------------------*/
+/* 부모 컨테이너에 위치 기준 설정 */
+#window-bottom {
+    position: relative;
+}
+/* 모달 배경 */
+.modal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* 모달 콘텐츠 */
+.modal-content {
+  background-color: #fffbea;
+  width: 100%;
+  height: 100%;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  position: relative;
+  font-family: "Arial", sans-serif;
+  animation: fadeIn 0.3s ease-in-out;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;  /* 상단-하단 요소 분리 */
+  /* padding: 16px; */
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+.log-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* padding: 10px 16px 0; */
+}
+
+/* 제목 스타일 */
+.log-header h3 {
+  margin: 0;
+  font-size: 16px;
+  flex: 1;
+  text-align: left;
+  height: 40px;
+  padding-left: 20px;
+}
+
+/* 닫힘 버튼 스타일 (이미 있으면 생략 가능) */
+.log-close-btn {
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+
+/* 닫기 버튼 */
+/* .log-close-btn {
+  position: absolute;
+  top: 10px;
+  right: 14px;
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+} */
+
+.log-type-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  /* margin-top: 40px; */
+}
+
+/* 좋은 일/나쁜 일 버튼 */
+.log-type-btn {
+  background-color: #ffd6e0;
+  border: none;
+  border-radius: 12px;
+  padding: 10px 16px;
+  margin: 6px;
+  margin-top: 50px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.log-type-btn:hover {
+  background-color: #ffb3c6;
+}
+
+/* 이벤트 옵션들 */
+#log-options {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-height: 300px;
+  overflow-y: auto;
+  padding: 4px;
+  flex: 1; /* 남은 공간 차지 */
+}
+
+/* 이벤트 옵션들 */
+#log-options .log-option {
+  background-color: #e0f7fa;
+  padding: 6px 12px;        /* 내부 여백 축소 */
+  margin: 3px 0;            /* 요소 간 간격 줄이기 */
+  border-radius: 10px;
+  cursor: pointer;
+  width: 90%;               /* 너비 비율 유지 */
+  text-align: center;
+  font-size: 13px;          /* 글자 크기 소폭 축소 */
+  transition: background-color 0.2s;
+  line-height: 1.2;
+}
+
+#log-options .log-option:hover {
+  background-color: #b2ebf2;
+}
+
+/* 확인 버튼 */
+#log-confirm {
+  background-color: #caffbf;
+  padding: 8px 16px;
+  border-radius: 10px;
+  border: none;
+  font-weight: bold;
+  /* margin-top: 12px; */
+  cursor: pointer;
+  font-size: 14px;
+  align-self: center; /* 가운데 정렬 */
+  margin-bottom: 5px;
+}
+#log-confirm:hover {
+  background-color: #b2f2bb;
+}
+
+/* 숨기기 */
+.hidden {
+  display: none;
+}
+

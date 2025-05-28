@@ -11,7 +11,7 @@
 
     <div id="sidebar-container"></div>
     <div class="game-wrapper">
-        <h1>🎲 Emotion Mini Game ✯</h1>
+        <h1>🎲 Emotion Mini Game 🎮</h1>
         
         <div id="game-container">
             <div id="game-top">
@@ -28,22 +28,19 @@
                     <div id="loading-bar-container">
                         <!-- 로딩 바 -->
                         <div id="loading-bar"></div>
-                        <!-- 메인 화면 진입 -->
-                            <div id="window-bottom">
-                                <!-- 캐릭터 이미지 -->
-                                <div id="character-display">
-                                    <img src="./images/character_default.png" alt="My Tamagotchi" id="character-img" />
-                                </div>
-
-                                <!-- 스탯 창 -->
-                                <div id="stats-panel">
-                                    <p>😊 행복도: <span id="stat-happy">50</span></p>
-                                    <p>💪 체력: <span id="stat-health">50</span></p>
-                                    <p>🎓 경험치: <span id="stat-exp">0</span></p>
-                                    <p>⭐ 레벨: <span id="stat-level">1</span></p>
-                                </div>
-                            </div>
                     </div>
+
+
+
+
+                    <!-- 메인 화면 진입 -->
+                    <div id="window-top-container">
+
+                    </div>
+
+
+
+
                 </div>
                 <div id="speaker-right">
                     <div class="speaker-circle">●</div>
@@ -77,8 +74,26 @@
                         <button class="game-action" data-action="exercise">🏃 운동하기</button>
                         <button class="game-action" data-action="eat">🍚 밥먹기</button>
                         <button class="game-action" data-action="rest">🛏 휴식하기</button>
-                        <button class="game-action" data-action="log">📝 오늘한일 기록</button>
+                        <button class="game-action" data-action="log">📝 오늘 한 일 기록</button>
                         <button class="game-action" data-action="shop">🛍 상점</button>
+                    </div>
+
+                    <!-- ✅ 오늘 한 일 모달 -->
+                    <div id="log-modal" class="modal hidden">
+                        <div class="modal-content">
+                            <div class="log-header">
+                                <h3>오늘 한 일은 어땠나요?</h3>
+                                <button id="log-close" class="log-close-btn">❌</button>
+                            </div>
+                            <div>
+                                <div class="log-type-container">
+                                    <button class="log-type-btn" data-type="good">😊 좋은 일이 있었어요</button>
+                                    <button class="log-type-btn" data-type="bad">😞 안 좋은 일이 있었어요</button>
+                                </div>
+                            </div>
+                            <div id="log-options" class="hidden"></div>
+                            <button id="log-confirm" class="hidden">확인</button>
+                        </div>
                     </div>
                 </div>
 
@@ -105,6 +120,8 @@
             </div>
         </div>
     </div>
+
+
     <script src="./js/game.js"></script>
 </body>
 </html>
