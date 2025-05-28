@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🏆 Game</title>
+    <link rel="stylesheet" href="./css/game.css" />
+    <link rel="stylesheet" href="./css/sidebar.css" />
+</head>
+<body>
+
+    <div id="sidebar-container"></div>
+    <div class="game-wrapper">
+        <h1>🎲 Emotion Mini Game ✯</h1>
+        
+        <div id="game-container">
+            <div id="game-top">
+                <div id="speaker-left">
+                    <div class="speaker-circle">●</div>
+                    <div class="speaker-circle">●</div>
+                    <div class="speaker-circle">●</div>
+                    <div class="speaker-circle">●</div>
+                    <div class="speaker-circle">●</div>
+                    <div class="speaker-circle">●</div>
+                </div>
+                <div id="window-top">
+                    <!-- 상단 메인 화면 -->
+                    <div id="loading-bar-container">
+                        <!-- 로딩 바 -->
+                        <div id="loading-bar"></div>
+                        <!-- 메인 화면 진입 -->
+                            <div id="window-bottom">
+                                <!-- 캐릭터 이미지 -->
+                                <div id="character-display">
+                                    <img src="./images/character_default.png" alt="My Tamagotchi" id="character-img" />
+                                </div>
+
+                                <!-- 스탯 창 -->
+                                <div id="stats-panel">
+                                    <p>😊 행복도: <span id="stat-happy">50</span></p>
+                                    <p>💪 체력: <span id="stat-health">50</span></p>
+                                    <p>🎓 경험치: <span id="stat-exp">0</span></p>
+                                    <p>⭐ 레벨: <span id="stat-level">1</span></p>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+                <div id="speaker-right">
+                    <div class="speaker-circle">●</div>
+                    <div class="speaker-circle">●</div>
+                    <div class="speaker-circle">●</div>
+                    <div class="speaker-circle">●</div>
+                    <div class="speaker-circle">●</div>
+                    <div class="speaker-circle">●</div>
+                </div>
+            </div>
+
+            <div id="game-middle">
+                <div id="middle-left"></div>
+                <div id="middle-on"></div>
+                <div id="middle-right"></div>
+            </div>
+
+            <div id="game-bottom">
+                <div id="joy-direction">
+                    <div class="dpad center"></div>
+                    <div class="dpad up"></div>
+                    <div class="dpad down"></div>
+                    <div class="dpad left"></div>
+                    <div class="dpad right"></div>
+                </div>
+
+                <div id="window-bottom">
+                    <!-- 하단 메인 화면 -->
+                    <!-- 메뉴 버튼 -->
+                    <div id="game-menu">
+                        <button class="game-action" data-action="exercise">🏃 운동하기</button>
+                        <button class="game-action" data-action="eat">🍚 밥먹기</button>
+                        <button class="game-action" data-action="rest">🛏 휴식하기</button>
+                        <button class="game-action" data-action="log">📝 오늘한일 기록</button>
+                        <button class="game-action" data-action="shop">🛍 상점</button>
+                    </div>
+                </div>
+
+                <div id="bottom-right">
+                    <div id="joy-abyx">
+                        <div id="joy-n"></div>
+                        <div id="joy-x">x</div>
+                        <div id="joy-n"></div>
+
+                        <div id="joy-y">y</div>
+                        <div id="joy-n"></div>
+                        <div id="joy-b">b</div>
+
+                        <div id="joy-n"></div>
+                        <div id="joy-a">a</div>
+                        <div id="joy-n"></div>
+                    </div>
+
+                    <div id="game-control">
+                        <button id="start">start</button>
+                        <button id="select">select</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="./js/game.js"></script>
+</body>
+</html>

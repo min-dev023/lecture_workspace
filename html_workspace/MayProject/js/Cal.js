@@ -49,6 +49,8 @@ let firstDayofMonth;
 let lastDayofMonth;
 let lastDateofLastMonth;
 
+let goalData;
+
 let liTag;
 
 let months = [
@@ -72,22 +74,23 @@ let months = [
 function showDetail(deYear, deMonth, deDay) {
     console.log("상세" + deYear + "년" + (deMonth+1) + "월" + deDay +"일");
 
-    const goalData = JSON.parse(localStorage.getItem('goalData') || '{}');
+    goalData = JSON.parse(localStorage.getItem('goalData') || '{}');
 
     // 월과 일이 1자리인 경우 0을 붙여서 두 자리로 만듦
-    const monthStr = String(deMonth+1).padStart(2, '0');
-    const dayStr = String(deDay).padStart(2, '0');
+    let monthStr = String(deMonth+1).padStart(2, '0');
+    let dayStr = String(deDay).padStart(2, '0');
 
     // yyyy-mm-dd 형식으로 조합
-    const key = `${deYear}-${monthStr}-${dayStr}`;
+    let key = `${deYear}-${monthStr}-${dayStr}`;
 
     // 콘솔에 출력
     console.log(goalData[key]);
 
     // 또는 화면에 표시
-    const emotionLogList = document.getElementById('session');
+    let emotionLogList = document.getElementById('session');
 
-    const entryDiv = document.createElement('div');
+
+    let entryDiv = document.createElement('div');
     entryDiv.classList.add('emotion-log-entry');
 
     emotionLogList.textContent = "";
@@ -109,24 +112,29 @@ function showDetail(deYear, deMonth, deDay) {
 
 // 달력 생성
 function renderCalendar() {
-    lastDateofMonth = new Date(currYear, currMonth + 1, 0).getDate();
+    goalData = JSON.parse(localStorage.getItem('goalData') || '{}'); // 다짐 목록 불러오기
+
+    lastDateofMonth = new Date(currYear, currMonth + 1, 0).getDate(); // 월의 마지막 날
 
     // header에 월*년도 출력
     let currentDate = document.querySelector('.current-date');
+
     currentDate.innerHTML = `${months[currMonth]} ${currYear}`;
+
     if(months[currMonth].indexOf >= 11) {
         currMonth = 0;
     }
     
     currentDate.innerHTML = `${months[currMonth]} ${currYear}`;
-    
+
     // 날짜 출력
     let daysTag = document.querySelector('.days');
+
     firstDayofMonth = new Date(currYear, currMonth, 1).getDay(); // 이번달이 시작하는 요일 (0: 일요일, 6: 토요일)
     lastDayofMonth = new Date(currYear, currMonth, lastDateofMonth).getDay(); // 이번달이 끝나는 요일 (0: 일요일, 6: 토요일)
     lastDateofLastMonth = new Date(currYear, currMonth, 0).getDate(); // 이전 달의 마지막 날짜
 
-    liTag = '';
+    liTag = ''; // li 일자 출력 초기화
 
     // 이전 달 '일' 표시
     for (let i = firstDayofMonth; i > 0; i--) {
@@ -137,12 +145,29 @@ function renderCalendar() {
     for (let i = 1; i <= lastDateofMonth; i++) {
         // 오늘 날짜 표시하기
         let isToday =
-        i === date.getDate() &&
-        currMonth === new Date().getMonth() &&
-        currYear === new Date().getFullYear()
-            ? 'active'
-            : '';
-        liTag += `<li id="${isToday}" name="evtDay">${i}</li>`;
+            i === date.getDate() &&
+            currMonth === new Date().getMonth() &&
+            currYear === new Date().getFullYear()
+            ? 'active' : ''
+        ;
+
+        // 다짐 영역 색깔 표시를 위해 name 지정
+
+        // 날짜 형식을 yyyy-mm-dd로 조합
+        let monthStr = String(currMonth + 1).padStart(2, '0');
+        let dayStr = String(i).padStart(2, '0');
+        let key = `${currYear}-${monthStr}-${dayStr}`;
+
+        // 다짐이 있는 경우 promise 클래스 추가
+        let hasGoal = goalData[key] ? 'promise' : '';
+
+        // 클래스 조합 (isToday나 hasGoal이 있을 수 있음)
+        let classList = `${isToday} ${hasGoal}`.trim();
+
+
+        // 클래스 추가 (날짜가 오늘인 경우 id="today", 나머지는 id는 없고 name="evtDay"로 지정)
+        // liTag += `<li id="${isToday}" name="evtDay">${i}</li>`;
+        liTag += `<li class="${classList}" name="evtDay">${i}</li>`;
     }
 
     // 다음 달 '일' 표시
@@ -153,7 +178,7 @@ function renderCalendar() {
     daysTag.innerHTML = liTag;
 
 
-    // 날짜 별 해당 일의 "다짐" 상세 내용 표시
+    // 날짜 별 해당 일의 "다짐" 상세 내용 표시 (클릭 이벤트 연결)
     let li = document.querySelectorAll('li[name="evtDay"]');
 
     li.forEach(li => {

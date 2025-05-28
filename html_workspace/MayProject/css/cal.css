@@ -1,8 +1,5 @@
-  /*#1 */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
 
-/*#2 */
-  
 body {
     font-family: 'Poppins', sans-serif;
     min-height: 100vh;
@@ -11,7 +8,6 @@ body {
     padding: 20px;
     background: #fffcf0;
     color: #333;
-    /* box-sizing: border-box; */
 }
 h1 {
     text-align: center;
@@ -29,7 +25,6 @@ p {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
 
     width: 100%;
     margin-bottom: 30px;
@@ -105,7 +100,7 @@ p {
     color: #aaa;
 }
 .days li.active {
-    color: #fff;
+    /* color: #fff; */
 }
 .calendar .days li::before {
     position: absolute;
@@ -118,12 +113,16 @@ p {
     border-radius: 50%;
     z-index: -1;
 }
-.days li:hover::before {
-    background: #f2f2f2;
+.days li.promise::before {
+    background: #b7fab7;
+    z-index: -1;
 }
-.days li#active::before {
+.days li.active::before {
     background: #ffe388;
     z-index: -1;
+}
+.days li:hover::before {
+    background: #f2f2f2;
 }
 
 /* 하단 날짜 초기화 버튼 */
@@ -158,34 +157,79 @@ p {
     background-color: #ffe87d;
 }
 
+/* 다짐 블럭 style */
+
+@keyframes pop-in {
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.05);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+  }
+}
 
 
 
+.emotion-log-entry {
+  animation: pop-in 0.5s ease;
+}
 
-#session {
+
+.emotion-log-entry {
+    background: #fff8cc;
+    border-left: 10px solid #ffb84d;
+    border-radius: 15px;
     width: 98%;
     margin-bottom: 30px;
     padding: 15px;  
     margin-top: 40px;
     padding: 20px;
-    border: 2px dashed #ffe87d;
-    background-color: #fffef2;
-    border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    max-width: 700px;
+    box-shadow: 6px 6px 15px rgba(0, 0, 0, 0.12);
+    font-family: 'Cute Font', 'Poppins', sans-serif;
+    color: #6b4c00;
+    position: relative;
+    margin: 20px auto;
+    transition: transform 0.3s ease;
 }
 
-#session h2 {
-    font-size: 1.4rem;
-    margin-bottom: 10px;
-    color: #333;
+/* 말풍선 꼬리 */
+.emotion-log-entry::after {
+  content: '';
+  position: absolute;
+  top: 20px;
+  left: -20px;
+  width: 0;
+  height: 0;
+  border-top: 12px solid transparent;
+  border-bottom: 12px solid transparent;
+  border-right: 20px solid #ffb84d;
 }
 
-.emotion-log-entry {
-    background-color: #fff8cc;
-    border: 1px solid #ffec99;
-    border-radius: 10px;
-    padding: 10px 15px;
-    margin-bottom: 10px;
-    box-shadow: 1px 1px 5px rgba(0,0,0,0.05);
+/* 강조 텍스트 */
+.emotion-log-entry strong {
+  font-weight: 700;
+  color: #d67b00;
 }
+
+/* 일반 텍스트 */
+.emotion-log-entry span,
+.emotion-log-entry p {
+  display: block;
+  font-size: 19px;
+  margin-top: 10px;
+  color: #4e3900;
+}
+
+/* 가벼운 흔들림 애니메이션 */
+.emotion-log-entry:hover {
+  transform: scale(1.02) ;
+}
+
+/* Google Fonts 예시 (선택사항) */
+@import url('https://fonts.googleapis.com/css2?family=Cute+Font&display=swap');
+

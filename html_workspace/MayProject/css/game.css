@@ -1,0 +1,291 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+body {
+    font-family: 'Poppins', sans-serif;
+    min-height: 100vh;
+    max-width: 700px;
+    margin: 40px auto;
+    padding: 20px;
+    background: #fffcf0;
+    color: #333;
+    /* box-sizing: border-box; */
+}
+h1 {
+    text-align: center;
+    font-size: 30px;
+}
+    
+.game-wrapper {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+        
+h1 {
+    margin-bottom: 20px;
+}
+/*-------------------------------------------------------------
+    전체 컨테이너
+-------------------------------------------------------------*/
+#game-container {
+    width: 100%;
+    height: 900px;
+    border: 3px solid rgb(197, 197, 197);
+    box-sizing: border-box; /*테두리를 안쪽으로*/
+
+    border-radius: 10px;
+    /* #ffe388 */
+    background-color: #ffdde4;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow: 6px 6px 15px rgba(0, 0, 0, 0.12);
+}
+
+/*-------------------------------------------------------------
+    상, 중, 하 각 컨테이너
+-------------------------------------------------------------*/
+#game-top, #game-middle, #game-bottom {
+    display: flex;
+    /* justify-content: space-between; */
+    align-items: center;
+    /* padding: 10px; */
+}
+
+#game-top,  #game-bottom {
+    /* width: 700px; */
+    height: 425px;
+    background-color: lightgreen;
+}
+#game-middle {
+    /* width: 700px; */
+    height: 50px;
+    background-color: lightblue;
+}   
+
+/*-------------------------------------------------------------
+    상 화면
+-------------------------------------------------------------*/
+#window-top{
+    background-color: white;
+    width: 400px;
+    height: 300px;
+    border: 2px solid black;
+    color: black;
+    font-size: 14px;
+    text-align: center;
+    line-height: 100px;
+    margin: 58px;
+    box-shadow: 6px 6px 15px rgba(0.12, 0.12, 0.12, 0.12);
+}
+
+/*-------------------------------------------------------------
+    상단 화면 - 스피커
+-------------------------------------------------------------*/
+#speaker-left, #speaker-right {
+  display: grid;
+  grid-template-columns: repeat(3, 10px);
+  grid-template-rows: repeat(2, 10px);
+  gap: 8px;
+  justify-items: center;
+  align-items: center;
+  margin: 20px;
+}
+
+.speaker-circle {
+  width: 10px;
+  height: 10px;
+  background-color: #fff;
+  border-radius: 50%;
+  font-size: 10px;
+  text-align: center;
+  line-height: 10px;
+  color: black;
+}
+
+/*-------------------------------------------------------------
+    힌지 부분 좌, 우
+-------------------------------------------------------------*/
+#game-middle {
+    border-top: 3px solid rgb(197, 197, 197);
+    border-bottom: 3px solid rgb(197, 197, 197);
+}
+
+#middle-left, #middle-right {
+    width: 80px;
+    height: 100%;
+    background-color: black;
+}
+
+#middle-on {
+    width: 534px;
+}
+
+/*-------------------------------------------------------------
+    하 화면
+-------------------------------------------------------------*/
+
+#window-bottom {
+    background-color: white;
+    width: 400px;
+    height: 300px;
+    border: 2px solid black;
+    color: black;
+    font-size: 14px;
+    text-align: center;
+    line-height: 100px;
+    box-shadow: 6px 6px 15px rgba(0.12, 0.12, 0.12, 0.12);
+}
+
+#joy-direction, #bottom-right {
+    width: 100px;
+    margin: 22px;
+}
+#bottom-right {
+    height: 200px;
+    text-align: center;
+    
+}
+
+/*-------------------------------------------------------------
+    하단 화면 - 좌측 방향키
+-------------------------------------------------------------*/
+
+#joy-direction {
+  position: relative;
+  height: 100px;
+  /* margin: 20px; */
+}
+
+.dpad {
+  position: absolute;
+  background-color: #444;
+  border: 2px solid #444;
+  border-radius: 5px;
+}
+
+.dpad:active { transform: scale(0.95); } 
+
+.dpad.center {
+  top: 40px;
+  left: 35px;
+  width: 30px;
+  height: 30px;
+  background-color: #444;
+  z-index: 2;
+}
+
+.dpad.up {
+  top: 0;
+  left: 35px;
+  width: 30px;
+  height: 40px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+}
+
+.dpad.down {
+  bottom: -7px;
+  left: 35px;
+  width: 30px;
+  height: 40px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+}
+
+.dpad.left {
+  top: 40px;
+  left: 0;
+  width: 40px;
+  height: 30px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.0);
+}
+
+.dpad.right {
+  top: 40px;
+  right: -5px;
+  width: 40px;
+  height: 30px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+}
+
+/*-------------------------------------------------------------
+    하단 화면 - 우측 컨트롤러
+-------------------------------------------------------------*/
+#joy-abyx {
+    display: grid;
+    grid-template-columns: repeat(3, 20px);
+    grid-gap: 10px;
+    background-color: transparent;
+    margin-right: 20px;
+    margin-left: 10px;
+}
+
+/*-------------------------------------------------------------
+    하단 화면 - 우측 컨트롤러 Y, X, A, B
+-------------------------------------------------------------*/
+#joy-abyx > div {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}
+
+#joy-x, #joy-y, #joy-a, #joy-b {
+    background-color: white;
+    box-shadow: 
+        inset -1px -1px 2px rgba(255, 255, 255, 0.6),
+        2px 2px 5px rgba(0, 0, 0, 0.4);
+}
+
+/*-------------------------------------------------------------
+    하단 화면 - 우측 컨트롤러 아래 전원 버튼 (start, select)
+-------------------------------------------------------------*/
+#game-control {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    height: 100px;
+    padding: 20px;
+}
+
+#start, #select {
+    width: 50px;
+    height: 20px;
+    background-color: white;
+    border: none;
+    border-radius: 50px;
+}
+
+button:focus {
+    outline: none;
+}
+
+/*-------------------------------------------------------------
+    오프닝 - 로딩 바 애니메이션 스타일
+-------------------------------------------------------------*/
+#loading-bar-container {
+    width: 80%;
+    height: 10px;
+    background: #ddd;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 0 auto;
+    margin-top: 150px;
+}
+#loading-bar {
+    width: 0;
+    height: 100%;
+    background: linear-gradient(to right, #ffd54f, #ffca28);
+    animation: loadBar 3s forwards;
+}
+@keyframes loadBar {
+    0% { width: 0; }
+    100% { width: 100%; }
+}
+#loading-bar-container.fade-out {
+    animation: fadeOut 0.5s ease forwards;
+}
+@keyframes fadeOut {
+    to {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
