@@ -189,11 +189,18 @@ function showDiaryModal() {
   if (logs.length === 0) {
     diaryEntries.innerHTML = "<p>아직 일기가 없어요 🐣</p>";
   } else {
+    // 날짜 오름차순 정렬
+    logs.sort((a, b) => new Date(a.date) - new Date(b.date));
+
+    // 출력 영역
+    let diaryEntries = document.getElementById("diary-entries");
+
+    // 출력
     diaryEntries.innerHTML = logs.map(entry => `
-      <div class="entry">
+    <div class="entry">
         <strong>${entry.date}</strong> - <em>${entry.type}</em><br/>
         ${entry.event || "<span style='color:gray'>(내용 없음)</span>"}
-      </div>
+    </div>
     `).join('');
   }
   diaryModal.classList.remove("hidden");

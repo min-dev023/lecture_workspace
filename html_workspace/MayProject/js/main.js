@@ -81,17 +81,42 @@ function saveDiary() {
 
 // 감정 일기 목록 출력
 function updateDiaryList() {
-    let diaryList = document.getElementById('diary-list');
-    let diaryData = JSON.parse(localStorage.getItem('diaryData') || '[]');
+    const diaryList = document.getElementById('diary-list');
+    const diaryData = JSON.parse(localStorage.getItem('diaryData') || '[]');
     diaryList.innerHTML = "";
 
-    
+    // 날짜 최신순으로 정렬
+    diaryData.sort((a, b) => new Date(b.date) - new Date(a.date));
+
     diaryData.slice().reverse().forEach(entry => {
-        let li = document.createElement('li');
-        printEmoji(entry.emotion);
-        li.textContent = `[${entry.date}] (${emojiText}, lv ${entry.emoLevelNum}) ${entry.content}`;
-        diaryList.appendChild(li);
+        const capsule = document.createElement('div');
+        capsule.classList.add('diary-capsule', entry.emotion); // 감정에 따라 클래스 부여
+
+        capsule.innerHTML = `
+            <div class="capsule-header">
+                <span class="capsule-date">${entry.date}</span>
+                <span class="capsule-emotion">Lv.${entry.emoLevelNum} ${getEmoji(entry.emotion)}</span>
+            </div>
+            <div class="capsule-content">
+                ${entry.content}
+            </div>
+        `;
+
+        diaryList.appendChild(capsule);
     });
+}
+
+// 감정에 따른 이모지 반환 함수
+function getEmoji(emotion) {
+    switch (emotion) {
+        case "joy": return "😊";
+        case "sadness": return "😢";
+        case "anger": return "😠";
+        case "anxiety": return "😰";
+        case "calm": return "😌";
+        case "neutral": return "😐";
+        default: return "📝";
+    }
 }
 
 // 감정 통계 시각화
@@ -158,24 +183,53 @@ function addGoal() {
 }
 
 // 날짜별 다짐 목록 보기
-function updateGoalList() {
-    let goalList = document.getElementById('goal-list');
-    let goalData = JSON.parse(localStorage.getItem('goalData') || '{}');
-    goalList.innerHTML = "";
+// function updateGoalList() {
+//     let goalList = document.getElementById('goal-list');
+//     let goalData = JSON.parse(localStorage.getItem('goalData') || '{}');
+//     goalList.innerHTML = "";
 
     
-    let sortedDates = Object.keys(goalData).sort().reverse();
-    sortedDates.forEach(date => {
-        let [year, month, day] = date.split("-");
-        let formattedMonth = month.padStart(2, '0');
-        let formattedDay = day.padStart(2, '0');
-        let formattedDate = `${year}년 ${formattedMonth}월 ${formattedDay}일`;
+//     let sortedDates = Object.keys(goalData).sort().reverse();
+//     sortedDates.forEach(date => {
+//         let [year, month, day] = date.split("-");
+//         let formattedMonth = month.padStart(2, '0');
+//         let formattedDay = day.padStart(2, '0');
+//         let formattedDate = `${year}년 ${formattedMonth}월 ${formattedDay}일`;
 
-        let li = document.createElement('li');
-        li.textContent = `[${formattedDate}] ${goalData[date]}`;
-        goalList.appendChild(li);
+//         let li = document.createElement('li');
+//         li.textContent = `[${formattedDate}] ${goalData[date]}`;
+//         goalList.appendChild(li);
+//     });
+// }
+
+function updateGoalList() {
+    const goalList = document.getElementById('goal-list');
+    const goalData = JSON.parse(localStorage.getItem('goalData') || '{}');
+    goalList.innerHTML = "";
+
+    const sortedDates = Object.keys(goalData).sort().reverse(); // 최신순 정렬
+
+    sortedDates.forEach(date => {
+        const [year, month, day] = date.split("-");
+        const formattedDate = `${year}년 ${month.padStart(2, '0')}월 ${day.padStart(2, '0')}일`;
+
+        const capsule = document.createElement('div');
+        capsule.classList.add('goal-capsule');
+
+        capsule.innerHTML = `
+            <div class="goal-header">
+                <span class="goal-date">${formattedDate}</span>
+                <span class="goal-icon">🎯</span>
+            </div>
+            <div class="goal-content">
+                ${goalData[date]}
+            </div>
+        `;
+
+        goalList.appendChild(capsule);
     });
 }
+
 
 function navShowCal() {
     document.getElementById("content").style.display = "none";
