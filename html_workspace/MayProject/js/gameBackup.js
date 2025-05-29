@@ -66,15 +66,13 @@ window.addEventListener("DOMContentLoaded", () => {
 });
 
 /*-------------------------------------------------------------
-    모달 - 오늘 한 일 
+    모달 - 오늘 한 일 function
 -------------------------------------------------------------*/
-
-let logEtcInput = document.getElementById("log-etc-input");
-let logTextarea = document.getElementById("log-textarea");
 
 let logModal = document.getElementById("log-modal");
 let logOptions = document.getElementById("log-options");
 let logConfirm = document.getElementById("log-confirm");
+
 
 let goodEvents = [
     { name: "운동을 했어요", effect: +10 },
@@ -89,113 +87,36 @@ let badEvents = [
 
 let selectedEvent = null;
 
-// 좋은 일 / 나쁜 일 / 기타 선택
+// 좋은 일 / 나쁜 일 선택
 document.querySelectorAll(".log-type-btn").forEach(btn => {
     btn.addEventListener("click", () => {
         let type = btn.dataset.type;
-        selectedEvent = null;
-
+        let events = type === "good" ? goodEvents : badEvents;
+        logOptions.innerHTML = events.map(e => `<div class="log-option" data-effect="${e.effect}">${e.name}</div>`).join('');
         logOptions.classList.remove("hidden");
         logConfirm.classList.add("hidden");
-        logEtcInput.classList.add("hidden");
-        logOptions.innerHTML = "";
 
-        if (type === "etc") {
-            logEtcInput.classList.remove("hidden");
-            logConfirm.classList.remove("hidden");
-            logOptions.classList.add("hidden");
-            
-        } else {
-            let events = type === "good" ? goodEvents : badEvents;
-            logOptions.innerHTML = events.map(e => `<div class="log-option" data-effect="${e.effect}" data-name="${e.name}">${e.name}</div>`).join('');
-            
-            document.querySelectorAll(".log-option").forEach(opt => {
-                opt.addEventListener("click", () => {
-                    document.querySelectorAll(".log-option").forEach(o => o.style.background = "");
-                    opt.style.background = "#ddd";
-                    selectedEvent = {
-                        effect: parseInt(opt.dataset.effect),
-                        name: opt.dataset.name,
-                        type: type
-                    };
-                    logConfirm.classList.remove("hidden");
-                });
+        // 이벤트 선택
+        document.querySelectorAll(".log-option").forEach(opt => {
+            opt.addEventListener("click", () => {
+                document.querySelectorAll(".log-option").forEach(o => o.style.background = "");
+                opt.style.background = "#ddd";
+                selectedEvent = parseInt(opt.dataset.effect);
+                logConfirm.classList.remove("hidden");
             });
-        }
+        });
     });
 });
 
 // 확인 버튼
 logConfirm.addEventListener("click", () => {
-    let entry = {
-        date: new Date().toISOString().split("T")[0], // yyyy-mm-dd
-        type: "",
-        event: "",
-        effect: 0
-    };
-
-    // 기타
-    if (!selectedEvent && !logTextarea.value.trim()) return;
-
-    if (logEtcInput.classList.contains("hidden")) {
-        stats.happy += selectedEvent.effect;
-        entry.type = selectedEvent.type;
-        entry.event = selectedEvent.name;
-        entry.effect = selectedEvent.effect;
-    } else {
-        entry.type = "etc";
-        entry.event = logTextarea.value.trim();
-        entry.effect = 0;
+    if (selectedEvent !== null) {
+        stats.happy += selectedEvent;
+        updateStats();
+        logModal.classList.add("hidden");
     }
-
-    // 저장
-    let logs = JSON.parse(localStorage.getItem("dailyLogs") || "[]");
-    logs.push(entry);
-    localStorage.setItem("dailyLogs", JSON.stringify(logs));
-
-    // UI 초기화
-    logTextarea.value = "";
-    logModal.classList.add("hidden");
-    updateStats();
 });
 
-/*-------------------------------------------------------------
-    모달 - 일기 보기 
--------------------------------------------------------------*/
-const diaryModal = document.getElementById("diary-modal");
-const diaryClose = document.getElementById("diary-close");
-const diaryEntries = document.getElementById("diary-entries");
-
-// 버튼 이벤트 추가
-document.querySelectorAll(".game-action").forEach(button => {
-  button.addEventListener("click", () => {
-    const action = button.dataset.action;
-    if (action === "diary") {
-      showDiaryModal();
-    }
-  });
-});
-
-// 일기 보기 모달 띄우기
-function showDiaryModal() {
-  const logs = JSON.parse(localStorage.getItem("dailyLogs")) || [];
-  if (logs.length === 0) {
-    diaryEntries.innerHTML = "<p>아직 일기가 없어요 🐣</p>";
-  } else {
-    diaryEntries.innerHTML = logs.map(entry => `
-      <div class="entry">
-        <strong>${entry.date}</strong> - <em>${entry.type}</em><br/>
-        ${entry.text}
-      </div>
-    `).join('');
-  }
-  diaryModal.classList.remove("hidden");
-}
-
-// 닫기 버튼
-diaryClose.addEventListener("click", () => {
-  diaryModal.classList.add("hidden");
-});
 
 /*-------------------------------------------------------------
     메인화면 진입
@@ -243,7 +164,7 @@ document.querySelectorAll(".game-action").forEach(button => {
                 selectedEvent = null;
                 break;
             case "diary":
-                
+                alert("🛍 일기 기능은 추후 구현!");
                 break;
             case "shop":
                 alert("🛍 상점 기능은 추후 구현!");

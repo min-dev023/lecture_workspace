@@ -53,9 +53,13 @@
             </div>
 
             <div id="game-middle">
-                <div id="middle-left"></div>
+                <div id="middle-left">
+                    <p style="text-align: center">🟢</p>
+                </div>
                 <div id="middle-on"></div>
-                <div id="middle-right"></div>
+                <div id="middle-right">
+                    <p style="text-align: center;">| | | | | |</p>
+                </div>
             </div>
 
             <div id="game-bottom">
@@ -75,6 +79,7 @@
                         <button class="game-action" data-action="eat">🍚 밥먹기</button>
                         <button class="game-action" data-action="rest">🛏 휴식하기</button>
                         <button class="game-action" data-action="log">📝 오늘 한 일 기록</button>
+                        <button class="game-action" data-action="diary">📝 일기 보기</button>
                         <button class="game-action" data-action="shop">🛍 상점</button>
                     </div>
 
@@ -89,10 +94,25 @@
                                 <div class="log-type-container">
                                     <button class="log-type-btn" data-type="good">😊 좋은 일이 있었어요</button>
                                     <button class="log-type-btn" data-type="bad">😞 안 좋은 일이 있었어요</button>
+                                    <button class="log-type-btn" data-type="etc">✍️ 기타</button>
                                 </div>
                             </div>
                             <div id="log-options" class="hidden"></div>
+                            <div id="log-etc-input" class="hidden">
+                                <textarea id="log-textarea" placeholder="오늘 있었던 일을 적어주세요..."></textarea>
+                            </div>
                             <button id="log-confirm" class="hidden">확인</button>
+                        </div>
+                    </div>
+
+                    <!-- 일기 보기 모달 -->
+                    <div id="diary-modal" class="modal hidden">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h3>📖 나의 일기</h3>
+                                <button id="diary-close" class="log-close-btn">❌</button>
+                            </div>
+                            <div id="diary-entries" class="diary-scroll"></div>
                         </div>
                     </div>
                 </div>
@@ -100,15 +120,15 @@
                 <div id="bottom-right">
                     <div id="joy-abyx">
                         <div id="joy-n"></div>
-                        <div id="joy-x">x</div>
+                        <div id="joy-x">X</div>
                         <div id="joy-n"></div>
 
-                        <div id="joy-y">y</div>
+                        <div id="joy-y">Y</div>
                         <div id="joy-n"></div>
-                        <div id="joy-b">b</div>
+                        <div id="joy-b">B</div>
 
                         <div id="joy-n"></div>
-                        <div id="joy-a">a</div>
+                        <div id="joy-a">A</div>
                         <div id="joy-n"></div>
                     </div>
 
@@ -123,5 +143,6 @@
 
 
     <script src="./js/game.js"></script>
+    <script src="./js/Side.js"></script>
 </body>
 </html>
