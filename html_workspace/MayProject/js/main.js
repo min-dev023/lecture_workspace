@@ -163,10 +163,16 @@ function updateGoalList() {
     let goalData = JSON.parse(localStorage.getItem('goalData') || '{}');
     goalList.innerHTML = "";
 
+    
     let sortedDates = Object.keys(goalData).sort().reverse();
     sortedDates.forEach(date => {
+        let [year, month, day] = date.split("-");
+        let formattedMonth = month.padStart(2, '0');
+        let formattedDay = day.padStart(2, '0');
+        let formattedDate = `${year}년 ${formattedMonth}월 ${formattedDay}일`;
+
         let li = document.createElement('li');
-        li.textContent = `[${date}] ${goalData[date]}`;
+        li.textContent = `[${formattedDate}] ${goalData[date]}`;
         goalList.appendChild(li);
     });
 }

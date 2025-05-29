@@ -159,6 +159,13 @@ logConfirm.addEventListener("click", () => {
     updateStats();
 });
 
+// 할일 닫기 버튼
+document.getElementById("log-close").addEventListener("click", () => {
+    document.getElementById("log-modal").classList.add("hidden");
+    logEtcInput.innerText = "";
+    logEtcInput.classList.add("hidden");
+});
+
 /*-------------------------------------------------------------
     모달 - 일기 보기 
 -------------------------------------------------------------*/
@@ -185,14 +192,14 @@ function showDiaryModal() {
     diaryEntries.innerHTML = logs.map(entry => `
       <div class="entry">
         <strong>${entry.date}</strong> - <em>${entry.type}</em><br/>
-        ${entry.text}
+        ${entry.event || "<span style='color:gray'>(내용 없음)</span>"}
       </div>
     `).join('');
   }
   diaryModal.classList.remove("hidden");
 }
 
-// 닫기 버튼
+// 일기 닫기 버튼
 diaryClose.addEventListener("click", () => {
   diaryModal.classList.add("hidden");
 });
@@ -267,10 +274,6 @@ document.querySelectorAll(".game-action").forEach(button => {
 
         updateStats();
     });
-});
-
-document.getElementById("log-close").addEventListener("click", () => {
-    document.getElementById("log-modal").classList.add("hidden");
 });
 
 /*-------------------------------------------------------------

@@ -9,21 +9,37 @@ body {
     background: #fffcf0;
     color: #333;
 }
+
 h1 {
     text-align: center;
     font-size: 30px;
+    /* color: #ffb300; */
+    text-shadow: 1px 1px 0 #fff3cc;
 }
 
-h1, h2 {
+h2 {
     color: #333;
+    border-left: 6px solid #FFE283;
+    padding-left: 10px;
+    margin-bottom: 10px;
 }
 
-textarea, select, input, button {
+textarea, select, input {
     margin: 5px 0;
     padding: 8px;
     width: 100%;
-    border: 1px solid #ccc;
-    border-radius: 6px;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    font-size: 15px;
+    background: #fffef7;
+    box-shadow: inset 1px 1px 3px rgba(255, 226, 131, 0.3);
+    transition: all 0.3s ease;
+}
+
+button {
+    margin: 5px 0;
+    padding: 8px;
+    width: 100%;
     font-size: 15px;
 }
 
@@ -31,15 +47,52 @@ textarea, input {
     width: 97%;
 }
 
+textarea:focus, input:focus {
+    outline: none;
+    border-color: #ffca1d;
+    background: #fff9e6;
+    box-shadow: 0 0 5px #ffe283a6;
+}
+
+/* 버튼 기본 스타일 */
 button {
     cursor: pointer;
-    background-color: #6c757d;
-    color: white;
+    background-color: #FFE283;
+    color: #5c4a00;
+    font-weight: 600;
     border: none;
+    padding: 10px;
+    border-radius: 10px;
+    transition: all 0.2s ease;
+    box-shadow: 2px 4px 0 #d6b656;
+    /* position: relative; */
+}
+
+/* 버튼 hover 시 살짝 밝게 + 그림자 변화 */
+button:hover {
+    background-color: #ffdd6d;
+    box-shadow: 1px 2px 0 #c0a843;
+    transform: translateY(-1px);
+}
+
+/* 버튼 클릭 시 눌리는 느낌 */
+button:active {
+    box-shadow: none;
+    transform: translateY(2px);
 }
 
 #btn_clear {
     background-color: #eb7d7d;
+    color: white;
+}
+
+#btn_clear:active {
+    box-shadow: none;
+    transform: translateY(2px);
+}
+
+#btn_clear:hover {
+    background-color: #d96d6d;
 }
 
 .section {
@@ -47,27 +100,48 @@ button {
     margin-bottom: 30px;
     padding: 15px;
     background: white;
-    border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    border-radius: 14px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.08);
 }
 
-.rangeInput{
-  width: 97%;
-  background: linear-gradient(to right, #FFE283 0%, #FFE283 50%, #ececec 50%, #ececec 100%);
-  border-radius: 8px;
-  outline: none;
-  /* transition: background 450ms ease-in; */
-  -webkit-appearance: none;
-  accent-color: #ffca1d;
+.rangeInput {
+    width: 97%;
+    background: linear-gradient(to right, #FFE283 0%, #FFE283 50%, #ececec 50%, #ececec 100%);
+    border-radius: 8px;
+    outline: none;
+    -webkit-appearance: none;
+    height: 10px;
+    margin-top: 10px;
+}
+
+.rangeInput::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 18px;
+    width: 18px;
+    border-radius: 50%;
+    background: #ffca1d;
+    border: 2px solid #fff;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+}
+
+.rangeInput::-moz-range-thumb {
+    height: 18px;
+    width: 18px;
+    border-radius: 50%;
+    background: #ffca1d;
+    border: 2px solid #fff;
+    cursor: pointer;
 }
 
 #emotion-stats .emotion-bar {
     margin: 5px 0;
-    padding: 5px;
-    border-radius: 5px;
+    padding: 8px;
+    border-radius: 8px;
     color: white;
     text-shadow: -1px 0px gray, 0px 1px gray, 1px 0px gray, 0px -1px gray;
     font-weight: bold;
+    font-size: 14px;
 }
 
 #clear {
@@ -75,9 +149,10 @@ button {
     padding: 15px;
 }
 
-.joy { background: #ffd3e2; color: #8e3e63; }
-.sadness { background: #d0e8ff; color: #3e5f8e; }
-.anger { background: #ffdddd; color: #8e3e3e; }
-.anxiety { background: #e3ddff; color: #4e3e8e; }
-.calm { background: #d6f5e3; color: #3e8e5f; }
-.neutral { background: #f0f0f0; color: #666; }
+/* 감정별 컬러 유지 + 귀여운 톤 */
+.joy { background: #ffecf5; color: #8e3e63; }
+.sadness { background: #e6f3ff; color: #3e5f8e; }
+.anger { background: #ffe5e5; color: #8e3e3e; }
+.anxiety { background: #edeaff; color: #4e3e8e; }
+.calm { background: #e3faef; color: #3e8e5f; }
+.neutral { background: #f7f7f7; color: #666; }
