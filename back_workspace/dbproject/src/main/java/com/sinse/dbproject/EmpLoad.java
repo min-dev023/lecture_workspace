@@ -38,6 +38,7 @@ public class EmpLoad extends JFrame implements WindowListener{
 	JButton bt_emp;
 	JButton bt_dept;
 	JButton bt_excel;
+	JButton bt_save;
 	
 	DataModel model; // JTable에 바라보는 Model 객체
 	
@@ -63,6 +64,7 @@ public class EmpLoad extends JFrame implements WindowListener{
 		bt_emp = new JButton("사원테이블 로드");
 		bt_dept = new JButton("부서테이블 로드");
 		bt_excel = new JButton("엑셀에서 로드");
+		bt_save = new JButton("저장");
 		
 		table = new JTable(model); // 테이블과 모델 연결은 반드시 생성자에서만 할 수 있는건 아니다.
 		scroll = new JScrollPane(table);
@@ -74,6 +76,7 @@ public class EmpLoad extends JFrame implements WindowListener{
 		p_north.add(bt_emp);
 		p_north.add(bt_dept);
 		p_north.add(bt_excel);
+		p_north.add(bt_save);
 		
 		add(p_north, BorderLayout.NORTH);
 		add(scroll);
@@ -92,14 +95,12 @@ public class EmpLoad extends JFrame implements WindowListener{
 		});
 		
 		bt_dept.addActionListener(new ActionListener(){ // 익명 내부 클래스
-			@Override
 			public void actionPerformed(ActionEvent e) {
 				loadEmp("select * from dept");
 			}
 		});
 		
 		bt_excel.addActionListener(new ActionListener(){ // 익명 내부 클래스
-			@Override
 			public void actionPerformed(ActionEvent e) {
 				// 내부 클래스가 외부 클래스의 인스턴스를 조회하는 방법
 				// 내부클래스는 외부 클래스의 인스턴스 접근 시, 클래스명.this
@@ -110,6 +111,12 @@ public class EmpLoad extends JFrame implements WindowListener{
 					File file = chooser.getSelectedFile();
 					loadExcel(file);
 				}
+			}
+		});
+		
+		bt_save.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("저장");
 			}
 		});
 		
@@ -142,7 +149,6 @@ public class EmpLoad extends JFrame implements WindowListener{
 			} else {
 				this.setTitle("접속 실패");
 			}
-			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
@@ -217,91 +223,44 @@ public class EmpLoad extends JFrame implements WindowListener{
 		// 이후 버전 xslx : XSSWorkbook
 		
 		try {
-			XSSFWorkbook workbook = new XSSFWorkbook(file);
+			XSSFWorkbook workbook=new XSSFWorkbook(file);
 			
-			// 시트에 접근하자
-			XSSFSheet sheet = workbook.getSheetAt(0); // 첫번째 시트 얻기
+			//시트에 접근하자
+			XSSFSheet sheet=workbook.getSheetAt(0);//첫번째 시트 얻기!!
 			
-			// Row에 접근하자
-			XSSFRow row = sheet.getRow(0);
+			// Row에 접근하자 
+			XSSFRow row=sheet.getRow(0);
 			
-//			XSSFCell cell = row.getCell(0); //ID
-			// Model의 커럼 제목배열인 title 배열에 채워넣기
+			// Model의 컬럼제목 배열인 title 배열에 채워넣기
 			model = new DataModel();
 			model.title = new String[row.getLastCellNum()];
-			
-			for(int i = 0; i < row.getLastCellNum(); i++) {
-				model.title[i] = row.getCell(i).getStringCellValue(); 
+			for(int i = 0;i < row.getLastCellNum(); i++) {
+				model.title[i] = row.getCell(i).getStringCellValue();
 			}
 			
-			// 2번째 행부터 데이터를 접근하여 Model의 data에 대입하자. -> 콘솔에 출력
-//			sheet.getFirstRowNum();
-			for(int i = sheet.getFirstRowNum()+1; i <= sheet.getLastRowNum(); i++) {
+			model.data = new String[sheet.getLastRowNum()][model.title.length];
+			
+			//2번째 행부터 데이터를 접근하여 Model의 data 에 대입하자 
+			//System.out.println(sheet.getFirstRowNum());
+			for(int i = sheet.getFirstRowNum() + 1; i <= sheet.getLastRowNum(); i++) {
 				XSSFRow r = sheet.getRow(i);
-				// 하나의 row를 이루고 있는 셀만큼 반복
-				for (int j = 0; j < r.getLastCellNum(); j++) {
-					XSSFCell cell = r.getCell(j);
-					System.out.print(cell.getStringCellValue() + "\t");
+				//하나의 row를 이루고 있는 셀만큼 반복 
+				for(int a=0;a<r.getLastCellNum();a++) {
+					XSSFCell cell =r.getCell(a);
+					System.out.print(cell.getStringCellValue()+"\t");
+					model.data[i-1][a]=cell.getStringCellValue();
 				}
-				System.out.println();
+				System.out.println("");
 			}
-			
-			//table에 출력 테스트////////////////////////////////////////////////////
-			
-			pstmt = con.prepareStatement(sql,ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-
-			// 현재 select 문의 대상이 되는 테이블의 컬럼 정보를
-			//프로그래밍에서 얻어오려면 ResultMetaData라는 객체를 이용.
-			ResultSetMetaData metaData = pstmt.getMetaData();
-			int colCount = metaData.getColumnCount();
-			
-			rs.last(); // 가장 마지막 row로 보내버림
-			int total = rs.getRow(); // 총 레코드 수
-			
-			// 레코드 수와 컬럼 수를 알아냈으니, 모델 객체가 보유한 현재 null인
-			// 이차원 배열을 메모리에 올리자
-			model = new DataModel();
-			model.data = new String[total][colCount];
-			model.title = new String[colCount]; // 컬럼 배열 생성			
-			
-			// rs의 데이터를 이차원배열로 옮겨 심기
-			rs.beforeFirst(); // rs 원위치(스크롤 가능하기 때문에)
-			
-			int index = 0; // 층수를 접근하기 위한 index
-			while(rs.next()) {
-				// 어떤 테이블인지는 모르나, 그 테이블의 컬럼 수 만큼 접근
-				for(int i = 0; i < colCount; i++) {
-					model.data[index][i] = rs.getString(i+1);					
-				}
-				index++;
-				
-				
-				for(int i = sheet.getFirstRowNum()+1; i <= sheet.getLastRowNum(); i++) {
-					XSSFRow r = sheet.getRow(i);
-					// 하나의 row를 이루고 있는 셀만큼 반복
-					for (int j = 0; j < r.getLastCellNum(); j++) {
-						XSSFCell cell = r.getCell(j);
-						System.out.print(cell.getStringCellValue() + "\t");
-					}
-					System.out.println();
-				}
-				
-				
-				
-				
-				
-				
-				
-			}
-			// 모든 데이터가 완성되었으므로, JTable에 모델을 동적으로 적용
+			System.out.println(model.data);
 			table.setModel(model);
 			table.updateUI();
 			
-			
-		} catch (InvalidFormatException | IOException e) {
+		} catch (InvalidFormatException e) {
 			e.printStackTrace();
-		}
-		
+		} catch (IOException e) {
+			e.printStackTrace();
+		}		
 	}
 	
 	public static void main(String[] args) {
