@@ -5,22 +5,23 @@ import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import com.sinse.shop.common.config.Config;
+import com.sinse.shop.common.util.StringUtil;
 import com.sinse.shopadmin.AppMain;
+import com.sinse.shopadmin.common.view.Page;
 import com.sinse.shopadmin.security.model.Admin;
 
-public class LoginForm extends JFrame{
+public class LoginForm extends Page{
 	JLabel la_id;
 	JLabel la_pwd;
 	JTextField t_id;
@@ -28,9 +29,8 @@ public class LoginForm extends JFrame{
 	JButton bt_login;
 	JButton bt_join;
 	
-	Connection con;
-	
-	public LoginForm() {
+	public LoginForm(AppMain appMain) {
+		super(appMain);
 		la_id = new JLabel("ID");
 		la_pwd = new JLabel("Password");
 		t_id = new JTextField();
@@ -54,7 +54,6 @@ public class LoginForm extends JFrame{
 		add(bt_login);
 		add(bt_join);
 		
-		connect();
 		
 		bt_login.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -62,32 +61,15 @@ public class LoginForm extends JFrame{
 			}
 		});
 		
-		setSize(270, 145);
-		setVisible(true);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		bt_join.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				appMain.showPage(Config.JOIN_PAGE);
+			}
+		});
 		
+		this.setPreferredSize(new Dimension(270, 145));
 	}
 	
-	public void connect() {
-		String url = "jdbc:mysql://localhost:3306/shop";
-		String user = "shop";
-		String pass = "1234";
-		
-		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			con = DriverManager.getConnection(url, user, pass);
-			if(con != null) {
-				this.setTitle("접속 성공");
-			}else {
-				this.setTitle("접속 실패");
-			}
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
 	
 	public void loginCheck() {
 		String id = t_id.getText(); // 일반 텍스트 컴포넌트의 스트링 값 얻기
@@ -98,15 +80,16 @@ public class LoginForm extends JFrame{
 		ResultSet rs = null;
 		
 		try {
-			pstmt = con.prepareStatement(sql);
+			pstmt = appMain.con.prepareStatement(sql);
 			// 쿼리문을 수행하기 위해, 바인드 변수를 먼저 지정해야함.
 			pstmt.setString(1, id);
-			pstmt.setString(2, pwd);
+			pstmt.setString(2, StringUtil.getSecuredPass(pwd));
 			rs = pstmt.executeQuery(); // select문은 표를 반환한다.
 			
 			if(rs.next()) { // 한칸 전진 후 true 가반환된다면 일치하는 데이터가 있다는 것이고,
 							// 일치하는 데이터가 있다는 것은 로긍니 성공!
 				JOptionPane.showMessageDialog(this, "로그인 성공");
+				
 				
 				// 로그인 성공한 사람의 정보 담기
 				Admin admin = new Admin(); // empty 상태의 객체 생성
@@ -115,7 +98,12 @@ public class LoginForm extends JFrame{
 				admin.setPwd(rs.getString("pwd"));
 				admin.setName(rs.getString("name"));
 				
-				AppMain appMain = new AppMain(con, admin);
+				// AppMain이 보유하고 있는 Admin 모델 객체의 현재 null 값을 위에서 생성한 Admin 대체
+				appMain.admin = admin;
+				
+				// 현재 유저가 보고 있는 페이지가 MainPage로 교체
+				appMain.showPage(Config.MAIN_PAGE);
+				
 				this.setVisible(false); // 자기 자신은 안보여야 함
 				// 주의! System.exit(0)은 전체 프로그램이 끝나버림
 			} else {
@@ -139,9 +127,5 @@ public class LoginForm extends JFrame{
 				}
 			}
 		}
-	}
-	
-	public static void main(String[] args) {
-		new LoginForm();
 	}
 }
